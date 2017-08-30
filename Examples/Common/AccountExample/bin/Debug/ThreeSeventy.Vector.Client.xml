@@ -1,0 +1,4310 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ThreeSeventy.Vector.Client</name>
+    </assembly>
+    <members>
+        <member name="T:ThreeSeventy.Vector.Client.VectorAuthElement">
+            <summary>
+            App.Config interface for IAuthConfig
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.IAuthConfig">
+            <summary>
+            Details for user authentication
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IAuthConfig.ApiKey">
+            <summary>
+            The api key to use.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IAuthConfig.Secret">
+            <summary>
+            The Secret to use.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.VectorAuthElement.ApiKey">
+            <summary>
+            The apikey should be sent.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.VectorAuthElement.Secret">
+            <summary>
+            The secret that should be sent.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.IConfiguration">
+            <summary>
+            Set of configuration values to use for configuring T70Context objects.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IConfiguration.Authorization">
+            <summary>
+            The authorization config
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IConfiguration.BaseUrl">
+            <summary>
+            The base URL to use.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IConfiguration.UserAgent">
+            <summary>
+            The user agent to use.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IConfiguration.Timeout">
+            <summary>
+            Timespan to wait before we give up on a request.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IConfiguration.RetryPolicy">
+            <summary>
+            The retry policy configuration.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.IRetryConfig">
+            <summary>
+            Details about the retry policy configuration for errored requests.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IRetryConfig.Type">
+            <summary>
+            The type of retry policy object to use.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IRetryConfig.MaxTries">
+            <summary>
+            The maximum number of times we should attempt to retry the request before giving up.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IRetryConfig.MinInterval">
+            <summary>
+            The minimum allowed value for timeouts.
+            </summary>
+            <remarks>
+            For incremental, and exponential policies this value is the base value.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IRetryConfig.MaxInterval">
+            <summary>
+            The maximum allowed value for timeouts.
+            </summary>
+            <remarks>
+            For incremental, and exponential policies this value is the base value.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IRetryConfig.Interval">
+            <summary>
+            How often (in miliseconds) we should attempt to retry.
+            </summary>
+            <remarks>
+            For incremental, and exponential policies this value is the base value.
+            </remarks>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Configuration.RestEntityConfiguration`1">
+            <summary>
+            The detailed configuration for an entity.
+            </summary>
+            <typeparam name="TEntity">The type of entity we're a configuration for.</typeparam>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Configuration.RestEntityConfigurationBase">
+            <summary>
+            Abstract class for the RestEntityConfiguration.
+            </summary>
+            <remarks>
+            This class provides the generic interface to make keeping a list of these easier.
+            
+            We don't use an interface so we can keep the guts internal to this assembly, but still provide the needed 
+            generic interface for the outside world.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestEntityConfigurationBase.GetBaseType">
+            <summary>
+            Returns the base type this configuration is for.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestEntityConfigurationBase.GetProperties">
+            <summary>
+            Gets a list of properties that have been configured for this entity.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestEntityConfigurationBase.GetPrimaryKeys">
+            <summary>
+            Gets a list of properties that have been marked as being the primary keys for this entity.
+            </summary>
+            <remarks>
+            There needs to be at least one property marked as the primary key, but multiple keys are 
+            allowed.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestEntityConfigurationBase.ValidateHasNeededKeys(System.Object)">
+            <summary>
+            Validates that the supplied object "args" contains the needed keys to perform an operation.
+            </summary>
+            <remarks>
+            If the object does not contain a needed key then an exception is thrown.
+            </remarks>
+            <param name="args">The object containing the keys to check.</param>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Configuration.RestEntityConfigurationBase.UriFormatStr">
+            <summary>
+            Gets or sets the URI format string.
+            </summary>
+            <remarks>
+            This string contains special inserts for the required and optional URI pramaters.
+            </remarks>
+            <example>
+            /account/{accountId}/contact/{contactId}
+            </example>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Configuration.RestEntityConfigurationBase.UriKind">
+            <summary>
+            Gets or sets the URI kind.
+            </summary>
+            <remarks>
+            This is used to allow an entity to map to a completely different URI by ignoring the base URI specified in 
+            the context.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.Configuration.RestEntityConfiguration`1.m_props">
+            <summary>
+            List of configured properties.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestEntityConfiguration`1.#ctor">
+            <summary />
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestEntityConfiguration`1.BuildProperties">
+            <summary>
+            Setup the initial list of properties.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestEntityConfiguration`1.UriFormat(System.String,System.UriKind)">
+            <summary>
+            Sets the format string for the URI.
+            </summary>
+            <remarks>
+            URIs contain inserts such as: /account/{accountId}/content/{contentId}
+            </remarks>
+            <param name="format">The format string to use.</param>
+            <param name="kind">The type of URI this is.  (DEFAULT: Relative)</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestEntityConfiguration`1.Property``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Gets the RestPropertyConfiguration object for the supplied property.
+            </summary>
+            <typeparam name="TProp">The type of the property we're configuring for.</typeparam>
+            <param name="property">A lambda expression that specifies the property to configure.</param>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Configuration.RestPropertyConfiguration`1">
+            <summary>
+            Configuration details for an entity's property.
+            </summary>
+            <typeparam name="TEntity">The type of entity that is being configured.</typeparam>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Configuration.RestPropertyConfigurationBase">
+            <summary>
+            Configuration details for an entity's property.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestPropertyConfiguration`1.PrimaryKey">
+            <summary>
+            Sets this property as a primary key for the entity.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestPropertyConfiguration`1.UrlSegment">
+            <summary>
+            Sets this property as a required URL segment parameter.
+            </summary>
+            <remarks>
+            URL segment parameters are those parts of the URL which are not supplied as a GET parameter.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestPropertyConfiguration`1.OptionalUrlSegment">
+            <summary>
+            Sets this property as an optional URL segment parameter.
+            </summary>
+            <remarks>
+            This functions the same as UrlSegment() except that the parameter is not required.
+            If this parameter is missing then that URL segment will be left blank.
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestPropertyConfiguration`1.Get">
+            <summary>
+            Sets this property as a GET parameter.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestPropertyConfiguration`1.Post">
+            <summary>
+            Sets this property as a POST parameter.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestPropertyConfiguration`1.GetOrPost">
+            <summary>
+            Sets this property as being either GET or POST.
+            </summary>
+            <remarks>
+            For GET and DELETE operations this parameter will be supplied as a GET parameter.
+            For PUT and POST this parameter will be supplied in the HTTP body.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestPropertyConfiguration`1.Cookie">
+            <summary>
+            Sets the property as being set via an HTTP cookie.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestPropertyConfiguration`1.Header">
+            <summary>
+            Sets the property as being set via an HTTP header.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Configuration.RestPropertyConfiguration`1.MapTo(System.String)">
+            <summary>
+            Sets how this property should be named when (de)serializing from the HTTP stream.
+            </summary>
+            <param name="name">The name to use in the HTTP streams.</param>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.RetryStrategyElement">
+            <summary>
+            Details about the retry policy for errored requests.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RetryStrategyElement.TypeName">
+            <summary>
+            The type of retry policy object to use.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RetryStrategyElement.Type">
+            <summary>
+            The type of retry policy object to use.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RetryStrategyElement.MaxTries">
+            <summary>
+            The maximum number of times we should attempt to retry the request before giving up.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RetryStrategyElement.MinInterval">
+            <summary>
+            The minimum allowed value for timeouts.
+            </summary>
+            <remarks>
+            For incremental, and exponential policies this value is the base value.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RetryStrategyElement.MaxInterval">
+            <summary>
+            The maximum allowed value for timeouts.
+            </summary>
+            <remarks>
+            For incremental, and exponential policies this value is the base value.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RetryStrategyElement.Interval">
+            <summary>
+            How often (in miliseconds) we should attempt to retry.
+            </summary>
+            <remarks>
+            For incremental, and exponential policies this value is the base value.
+            </remarks>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.VectorConfigSection">
+            <summary>
+            App/Web.config mapping
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.VectorConfigSection.GetConfig">
+            <summary>
+            Pulls config from the configuration file.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.VectorConfigSection.Authorization">
+            <summary>
+            Details on how we should connect to the remote service.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.VectorConfigSection.BaseUrl">
+            <summary>
+            The base URL to use.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.VectorConfigSection.UserAgent">
+            <summary>
+            The user agent string to use when sending requests.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.VectorConfigSection.Timeout">
+            <summary>
+            Timespan to wait before we give up on a request.
+            </summary>
+            <remarks>
+            Default is 2 minutes.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.VectorConfigSection.InnerRetryPolicy">
+            <summary>
+            Determins how we should attempt to retry errors.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.VectorConfigSection.RetryPolicy">
+            <summary />
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.ActionType">
+            <summary>
+            Different Action Types
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ActionType.AttachKeyword">
+            <summary>
+            This Action type lets you Attach a keyword to a Campaign
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ActionType.SendSMS">
+            <summary>
+            This Action Type lets you send an SMS
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ActionType.PushCampaign">
+            <summary>
+            This Action Type lets you push a campaign to a contact ot a list of contacts usign a contact list
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ActionType.DialogCallback">
+            <summary>
+            This Action Type triggers a Callback on a Dialog Campaign
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ActionType.StopCallback">
+            <summary>
+            This Action Type triggers a callback when a contact Text in STOP
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ActionType.KeywordCallback">
+            <summary>
+            This Action Type triggers a callback when a contact Text in a Keyword
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ActionType.ChargifyCallback">
+            <summary>
+            This Action Type triggers a callback on an new account signup via chargify
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ActionType.NewAccountCallback">
+            <summary>
+            This Action Type triggers a callback on an account creation
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ActionType.ImportContacts">
+            <summary>
+            This Action Type lets you import list of contacts into the system from a CSV file.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ActionType.KillCampaignPush">
+            <summary>
+            This Action Type lets you Kill a push campaign if its not yet triggered
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Enums.ApiKeyType">
+            <summary>
+            Api Key type mapping
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.Enums.ApiKeyType.Master">
+            <summary>
+            Master key.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.Enums.ApiKeyType.Common">
+            <summary>
+            Regular key.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.Enums.ApiKeyType.Temporary">
+            <summary>
+            Temporary key
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.CallbackType">
+            <summary>
+            The type of event which will trigger the callback.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CallbackType.Keyword">
+            <summary>
+            Execute when a contact texts into a keyword.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CallbackType.Reserved0">
+            <summary>
+            Reserved by TrueDialog, do not use.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CallbackType.Dialog">
+            <summary>
+            Executes when a contact texts in a valid response to a dialog question.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CallbackType.Sweepstakes">
+            <summary>
+            Execute when a contact is sent a sweepstakes campaign.
+            </summary>
+            <remarks>
+            Not supported yet.  Do not use.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CallbackType.Coupon">
+            <summary>
+            Execute when a contact is sent a coupon campaign.
+            </summary>
+            <remarks>
+            Not supported yet.  Do not use.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CallbackType.Stop">
+            <summary>
+            Execute when a contact is opts out of a subscription.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CallbackType.Reserved1">
+            <summary>
+            Reserved by TrueDialog, do not use.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CallbackType.NewAccount">
+            <summary>
+            Executes when a new sub-account is created under a master account.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CallbackType.Reserved2">
+            <summary>
+            Reserved by TrueDialog, do not use.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CallbackType.Reserved3">
+            <summary>
+            Reserved by TrueDialog, do not use.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CallbackType.IncomingMessage">
+            <summary>
+            Triggers when the System receives an incoming message from the contact 
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.CampaignType">
+            <summary>
+            Enumeration for identifying the type of campaign we are working with.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CampaignType.Gateway">
+            <summary>
+            A campaign with no content for pushing out unformatted messages.
+            </summary>
+            <remarks>
+            If pushed, then the EventPushCampaign must contain a message in order to be successful.
+            </remarks>
+            <seealso cref="!:EventPushCampaign"/>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CampaignType.Basic">
+            <summary>
+            A campaign with preformatted content.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CampaignType.Dialog">
+            <summary>
+            A campaign which contains a group of question campaigns.
+            </summary>
+            <remarks>
+            Dialog campaigns do not have content in of themselves.  Their content comes from the linked question campaigns.
+            
+            TODO: Not supported by this SDK yet.
+            </remarks>
+            <see cref="F:ThreeSeventy.Vector.Client.CampaignType.Question"/>
+            <see cref="T:ThreeSeventy.Vector.Client.Models.Campaign"/>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CampaignType.Question">
+            <summary>
+            A campaign that asks a single question in a survey.
+            </summary>
+            <remarks>
+            Question campaigns hold the actual content for dialog campaigns.
+            
+            These are chained together to for a series of questions that will get sent to the contact.
+            
+            TODO: Not supported by this SDK yet.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CampaignType.Coupon">
+            <summary>
+            A campaign which sends a coupon code to a customer.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CampaignType.Sweapstakes">
+            <summary>
+            Reserved, do not use.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.CampaignType.Chat">
+            <summary>
+            Reserved, do not use
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.ChannelType">
+            <summary>
+            The type of messages that can be sent on a channel.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ChannelType.Sms">
+            <summary>
+            Channel is for sending plain text SMS messages.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ChannelType.Mms">
+            <summary>
+            Channel supports sending large format messages such as images.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ChannelType.Email">
+            <summary>
+            Channel is for sending email messages.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ChannelType.Voice">
+            <summary>
+            Channel is for voice/audio messages.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ChannelType.Null">
+            <summary>
+            The channel is for testing and the messages will be discarded after being logged.
+            </summary>
+            <remarks>
+            This channel behaves the same as the SMS channel type, but messages are not delivered to the target.
+            </remarks>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.EncodingType">
+            <summary>
+            Dictates the template's format.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.EncodingType.Text">
+            <summary>
+            All text is plain and should not be interpreted in anyway.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.EncodingType.Razor">
+            <summary>
+            The text has Razor encodings in it.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.ErrorCode">
+            <summary>
+            Specific error code to return to the caller when there is an issue.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ErrorCode.UnknownError">
+            <summary>
+            There was some sort of unknown error.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ErrorCode.UnsetErrorCode">
+            <summary>
+            The error code was not set on this validation error.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ErrorCode.Forbidden">
+            <summary>
+            The user does not have access to the object specified
+            </summary>
+            <remarks>
+            This error code was chosen to match that of the HTTP status code.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ErrorCode.ObjectNotFound">
+            <summary>
+            The object was not found
+            </summary>
+            <remarks>
+            This error code was chosen to match that of the HTTP status code.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ErrorCode.PropertyAlreadyInUse">
+            <summary>
+            The supplied value cannot be reused
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ErrorCode.PropertyRequired">
+            <summary>
+            The property is required and cannot be left blank.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ErrorCode.PropertyTooLarge">
+            <summary>
+            The property exceeds some maximum.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ErrorCode.PropertyTooSmall">
+            <summary>
+            THe property exceeds some minimum.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ErrorCode.PropertyOutOfRange">
+            <summary>
+            The value of the property is out of range of a specific limit.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ErrorCode.PropertyInvalidValue">
+            <summary>
+            The value for the property is invalid.  (E.g.: Invalid email address)
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.LanguageType">
+            <summary>
+            Identifier for languages
+            </summary>
+            <remarks>
+            This enumeration will later be replaced with the specification dictated by RFC-1766
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.LanguageType.English">
+            <summary>
+            English (United States)
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.LanguageType.Spanish">
+            <summary>
+            Spanish (Mexico)
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.LanguageType.ChineseSimplified">
+            <summary>
+            Chinese (Simplified)
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.LanguageType.French">
+            <summary>
+            French (Canadian)
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.LanguageType.Arabic">
+            <summary>
+            Arabic (Middle East)
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.LanguageType.Nepali">
+            <summary>
+            Nepali (Nepal)
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.LanguageType.Burmese">
+            <summary>
+            Burmese (Myanmar)
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.LanguageType.Somali">
+            <summary>
+            Somali (Somalia)
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.LinkType.Static">
+            <summary>
+            Links are static and don't have any dynamic properties.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.LinkType.Dynamic">
+            <summary>
+            Links contain some dynamic properties.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.MappingType">
+            <summary>
+            Describes how a member variable is passed on to the HTTP server.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.MappingType.UrlSegment">
+            <summary>
+            The parameter is a required part of the URL segment.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.MappingType.OptionalUrlSegment">
+            <summary>
+            Parameter is an optional part of the URL segment.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.MappingType.Get">
+            <summary>
+            Paramter is a GET value.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.MappingType.Post">
+            <summary>
+            Paramter appears only in POST/PUT data.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.MappingType.GetOrPost">
+            <summary>
+            Parameter can be set via GET or POST/PUT.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.MappingType.Cookie">
+            <summary>
+            Parameter is passed in through via an HTTP cookie value.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.MappingType.Header">
+            <summary>
+            Parameter is passed in through the HTTP header.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.ResourceStatus">
+            <summary>
+            The status of a resource.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ResourceStatus.Active">
+            <summary>
+            The resource is fully active and can be used per normal.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ResourceStatus.Inactive">
+            <summary>
+            The resource is no longer active and can no longer be used.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ResourceStatus.Deleted">
+            <summary>
+            The resource has been deleted and cannot be used.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.ScheduleType">
+            <summary>
+            Event schedule type
+            </summary>
+            <remarks>
+            Currently the only supported types are: Now, OneTime and Daily.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ScheduleType.OneTime">
+            <summary>
+            Will execute the action at a specified time in the future
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ScheduleType.Second">
+            <summary>
+            Will Execute the action once every second.
+            </summary>
+            <remarks>
+            This is a place holder value and is not supported.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ScheduleType.Minute">
+            <summary>
+            Will Execute the action once every minute.
+            </summary>
+            <remarks>
+            This is a place holder value and is not supported.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ScheduleType.Hour">
+            <summary>
+            Will Execute the action once every hour
+            </summary>
+            <remarks>
+            This is a place holder value and is not supported.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ScheduleType.Daily">
+            <summary>
+            Will execute the action at a specified time every day.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ScheduleType.Weekly">
+            <summary>
+            Will execute the action at a specified time on specified days of the week.
+            </summary>
+            <remarks>
+            This is a place holder value and is not supported.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ScheduleType.Monthly">
+            <summary>
+            Will execute the action at a specified time on specified days of the month
+            </summary>
+            <remarks>
+            This is a place holder value and is not supported.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.ScheduleType.Yearly">
+            <summary>
+            Will execute the action once every year.
+            </summary>
+            <remarks>
+            This is a place holder value and is not supported.
+            </remarks>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.SubscriptionType">
+            <summary>
+            The type of subscription, either one-time or recurring.
+            </summary>
+            <remarks>
+            IMPORTANT NOTE: Setting the correct subscription type is important for following correct CTIA compliance
+            guidelines.
+            </remarks>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.ContactSubscription"/>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.Subscription"/>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.SubscriptionType.Recurring">
+            <summary>
+            Recurring subscriptions are for situations where multiple messages are going to be sent to a contact on an
+            ongoing basis.  Most types of subscriptions will fall into this category.  A good example is for a marketing
+            campaign where events and coupons might be sent out to a list of interested customers.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.SubscriptionType.OneTime">
+            <summary>
+            One time subscriptions are for one off messages where the intention is to send a single message to that
+            customer once.  A good example would be to notify specific people they have a package waiting in an office,
+            or that their scheduled service call will be arriving shortly.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.NetworkException">
+            <summary>
+            Represents an network communication error when attempting to reach the REST server.
+            </summary>
+            <remarks>
+            This is mostly used as a differentiator between a generic exception and an error that
+            has occurred when attempting to communicate with the server.
+            
+            The retry logic uses this to retry on network errors.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.NetworkException.#ctor(System.String,System.Exception)">
+            <summary />
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.IRepository`1">
+            <summary>
+            Interface for persistent data repositories.
+            </summary>
+            <typeparam name="TEntity">The type of entity being stored/retrieved.</typeparam>
+            /// <remarks>
+            This abstraction is provided as a hook for generating unit test mocks.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRepository`1.Get``1(``0,System.Boolean)">
+            <summary>
+            Gets a specific entity from the repository.
+            </summary>
+            <remarks>
+            For objects with a compound key 'id' can be a complex object who's properties are 
+            each part of the compound key.
+            
+            For example:
+            var sub = contactSubRepo.Get(new { ContactId = 5, SubscriptionId = 10 });
+            
+            If there's a single key, there is no need for boxing:
+            var contact = contactRepo.Get(5);
+            </remarks>
+            <typeparam name="TKey">The type of object that specifies the key data.</typeparam>
+            <param name="id">The ID of the object being pulled</param>
+            <param name="throwIfNotFound">Set to true if an error should be thrown if an object is not found.
+            If this is false, then NULL is returned when an object is not found.</param>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <returns>The object if found, or NULL if not.
+            If throwIfNotFound is set to true then an exception will be thrown when the object cannot be located.
+            </returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRepository`1.GetAll">
+            <summary>
+            Returns a list of all objects available in the repository.
+            </summary>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <returns>An IQueryable for the given entity type.</returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRepository`1.Add(`0)">
+            <summary>
+            Adds an object to the repository.
+            </summary>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entity">The entity to add</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRepository`1.Add">
+            <summary>
+            Add an object to the repository
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRepository`1.AddRange(System.Collections.Generic.ICollection{`0})">
+            <summary>
+            Adds a list of objects to the repository.
+            </summary>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entities">The list of objects to add</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRepository`1.Update(`0)">
+            <summary>
+            Updates an object in the repository.
+            </summary>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entity">The object to update</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRepository`1.UpdateRange(System.Collections.Generic.ICollection{`0})">
+            <summary>
+            Updates a list of objects in the repository.
+            </summary>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entities">The list of objects to add</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRepository`1.Delete(`0)">
+            <summary>
+            Removes an object from the repository.
+            </summary>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entity">The object ot delete</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRepository`1.Delete">
+            <summary>
+            Removes an object from the repository
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRepository`1.DeleteAll(System.Collections.Generic.ICollection{`0})">
+            <summary>
+            Removes a list of objects from the repository.
+            </summary>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entries">The list of objects to remove.</param>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.IRestClientFactory">
+            <summary>
+            Interface for generating a new instance of IRestClient
+            </summary>
+            <remarks>
+            This interface is a hook for generating mock objects for unit testing.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRestClientFactory.Create(ThreeSeventy.Vector.Client.IConfiguration)">
+            <summary>
+            Generates a new object that implements the IRestClient interface.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.IUriFactory">
+            <summary>
+            Interface for URI generation factory.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IUriFactory.Create">
+            <summary>
+            Generate a URI for calling the TrueDialog APIs.
+            </summary>
+            <returns>A string representing the base URI to the TrueDialog APIs.</returns>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Account">
+            <summary>
+            Details for an account.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Base">
+            <summary>
+            Base for (almost) all model classes.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Base.Id">
+            <summary>
+            Primary key for the model.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Account.StatusId">
+            <summary>
+            The current status of the account.
+            </summary>
+            <remarks>
+            This is the soft delete status.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Account.ParentId">
+            <summary>
+            The parent account which owns this account.
+            </summary>
+            <remarks>
+            This will be NULL for the root account.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Account.Name">
+            <summary>
+            The name of the account.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Account.Created">
+            <summary>
+            When the account was created.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Account.AllowCallback">
+            <summary>
+            Set if the account is allowed to make callbacks.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Account.CallbackToken">
+            <summary>
+            The token that is used when making callbacks.
+            </summary>
+            <remarks>
+            When TrueDialog makes a callback this token will be sent along with that callback request.
+            
+            This token can be whatever GUID of your choosing.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Account.Status">
+            <summary>
+            Enumeration wrapper for StatusId
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.AccountAttribute">
+            <summary>
+            USsed to work with the Account Attributes
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AccountAttribute.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AccountAttribute.Name">
+            <summary>
+            Account Attribute Name
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AccountAttribute.Value">
+            <summary>
+            AccountAttribute Value
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.AccountAttributeCategory">
+            <summary>
+            Account Attrribute Category Details
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AccountAttributeCategory.Name">
+            <summary>
+            Account Attribute Category Name
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AccountAttributeCategory.Description">
+            <summary>
+            Account Attribute Category Description
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.AccountAttributeDefinition">
+            <summary>
+            Account Attrribute Definition Details
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AccountAttributeDefinition.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AccountAttributeDefinition.CategoryId">
+            <summary>
+            Account Attribute Category Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AccountAttributeDefinition.DataType">
+            <summary>
+            Attribute DataTypeId
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AccountAttributeDefinition.Name">
+            <summary>
+            Name of the Account Attribute
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AccountAttributeDefinition.Description">
+            <summary>
+            Account Attribute Description
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AccountAttributeDefinition.Inheritable">
+            <summary>
+            Account Attribute is inheritable to the child accounts or not
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Action">
+            <summary>
+            Used to Create or Get an Action
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.SoftDeletable">
+            <summary>
+            Base type for objects that are not removed when delete is called, but rather are placed in a deleted state.
+            </summary>
+            <remarks>
+            The statusId field is not directly settable by us.  It is instead changed when an HTTP <tt>DELETE</tt> call is
+            made on this object type.
+            </remarks>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.BaseAudited">
+            <summary>
+            Base class for objects with audit information.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BaseAudited.Created">
+            <summary>
+            When this object was first created.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BaseAudited.Modified">
+            <summary>
+            When this object was last modified.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BaseAudited.CreatedBy">
+            <summary>
+            Who created this object.
+            </summary>
+            <remarks>
+            Not yet used.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BaseAudited.ModifiedBy">
+            <summary>
+            Who last modified this object.
+            </summary>
+            <remarks>
+            Not yet used.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SoftDeletable.StatusId">
+            <summary>
+            Gets the current status of the object.
+            </summary>
+            <remarks>
+            The object's status is not directly settable. Instead it is changed when an HTTP <tt>DELETE</tt> method is made.
+            </remarks>
+            <seealso cref="P:ThreeSeventy.Vector.Client.Models.SoftDeletable.Status"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SoftDeletable.Status">
+            <summary>
+            Gets the current status of the object.
+            </summary>
+            <remarks>
+            The object's status is not directly settable. Instead it is changed when an HTTP DELETE call is made.
+            
+            This is an enumeration wrapper for the StatusId
+            </remarks>
+            <seealso cref="P:ThreeSeventy.Vector.Client.Models.SoftDeletable.StatusId"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Action.TypeId">
+            <summary>
+            Action Type Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Action.ActionType">
+            <summary>
+            Action Type
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Action.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ActionAttachKeyword">
+            <summary>
+            Used to Attach and Dettach a Keyword to a Campaign
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionAttachKeyword.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionAttachKeyword.ChannelId">
+            <summary>
+            Channel Id on which the keyword is 
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionAttachKeyword.KeywordId">
+            <summary>
+            Keyword Id 
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionAttachKeyword.CampaignId">
+            <summary>
+            Campaign Id to which the keyword is attached
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ActionExecute">
+            <summary>
+            Used to Execute an Action
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionExecute.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionExecute.ActionId">
+            <summary>
+            Action Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionExecute.Started">
+            <summary>
+            When the Action was started
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionExecute.Finished">
+            <summary>
+            When the Action was Finished
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionExecute.Approved">
+            <summary>
+            Approval status
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionExecute.Declined">
+            <summary>
+            Declined status
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ActionImportContacts">
+            <summary>
+            Lets you import conatcts 
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Models.ActionImportContacts.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionImportContacts.AccountId">
+            <summary>
+            The account ID that the action reports under.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionImportContacts.Schedules">
+            <summary>
+            The list of schedules associated with the action
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionImportContacts.Url">
+            <summary>
+            Points to a BLOB url that contains the file to parse.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionImportContacts.Subscriptions">
+            <summary>
+            A list of subscriptions that should be added or modified for each of the contacts in the supplied file.
+            </summary>
+            
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionImportContacts.OverrideSubscription">
+            <summary>
+            This will override optout to optin 
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ActionSchedule">
+            <summary>
+            Used to Schedule an Action
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionSchedule.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionSchedule.ActionId">
+            <summary>
+            Action Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionSchedule.ScheduleTypeId">
+            <summary>
+            Schedule Type Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionSchedule.ScheduleType">
+            <summary>
+            Schedule Type Enum
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionSchedule.RunAt">
+            <summary>
+            Time of day to start run at Ex: 12:20:00 or 17:04:40
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionSchedule.StartFrom">
+            <summary>
+            Date and time from which schedule will start.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionSchedule.WeekDay">
+            <summary>
+            Day(s) of week to run action on.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionSchedule.MonthDay">
+            <summary>
+            Day(s) of month to run action on.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Callback">
+            <summary>
+            Details of a callback the Vector servers will make when an event occurs.
+            </summary>
+            <remarks>
+            Callbacks provide a way to greatly customize the behavior of a campaign.
+            
+            For example, you could attach a keyword to a gateway campaign and then
+            respond to the keyword callback to define your own campaign logic.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Callback.AccountId">
+            <summary>
+            The account to which this callback will occur.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Callback.CallbackTypeId">
+            <summary>
+            The type of event which will trigger the callback.
+            </summary>
+            <remarks>
+            Different callback types will send different sets of data.
+            </remarks>
+            <see cref="T:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent"/>
+            <see cref="T:ThreeSeventy.Vector.Client.Models.KeywordCallbackEvent"/>
+            <see cref="T:ThreeSeventy.Vector.Client.Models.NewAccountCallbackEvent"/>
+            <see cref="T:ThreeSeventy.Vector.Client.Models.StopCallbackEvent"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Callback.Url">
+            <summary>
+            The URL that will be called when the callback type event occurs.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Callback.Active">
+            <summary>
+            Set if the callback is currently active.
+            </summary>
+            <remarks>
+            This flag allows you to quickly turn a callback on and off.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Callback.CallbackType">
+            <summary>
+            Enumeration mapping for CallbackTypeId
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.IncomingMessageCallbackEvent">
+            <summary>
+            Details for when a contact sends a message to the Platfrom.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.BaseCallbackEvent">
+            <summary>
+            Base details for the data that is sent when a callback is performed.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BaseCallbackEvent.AccountId">
+            <summary>
+            The account ID which this callback belongs.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BaseCallbackEvent.Timestamp">
+            <summary>
+            The time (in UTC) the callback occurred.
+            </summary>
+            <remarks>
+            This value is sent as a string in the ISO 8601 format.
+            </remarks>
+            <example>
+            2014-08-21T17:27:30
+            </example>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BaseCallbackEvent.AccountCallbackToken">
+            <summary>
+            The user supplied GUID.
+            </summary>
+            <remarks>
+            This will be set to the value found in the account's CallbackToken value.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BaseCallbackEvent.CallbackTypeId">
+            <summary>
+            The type of callback that is being sent.
+            </summary>
+            <remarks>
+            Normally this would be set to "internal" and not "public", but it 
+            is likely this class will get deserialized outside of this library.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BaseCallbackEvent.Url">
+            <summary>
+            The URL this callback was sent to.
+            </summary>
+            <remarks>
+            This is for reference
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BaseCallbackEvent.TransactionId">
+            <summary>
+            A unique ID for this call.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BaseCallbackEvent.CallbackType">
+            <summary>
+            Enumeration mapping for CallbackTypeId
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.IncomingMessageCallbackEvent.AccountName">
+            <summary>
+            The account name that sent the message.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.IncomingMessageCallbackEvent.Message">
+            <summary>
+            The Message that the contact has sent to the platfrom
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.IncomingMessageCallbackEvent.ChannelId">
+            <summary>
+            The channel ID we receved the message on.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.IncomingMessageCallbackEvent.ContactId">
+            <summary>
+            The contact ID which texted in.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.IncomingMessageCallbackEvent.PhoneNumber">
+            <summary>
+            The phone number of the contact
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.IncomingMessageCallbackEvent.ChannelCode">
+            <summary>
+            The actual channle code Ex: +19103755141
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.KeywordCallbackEvent">
+            <summary>
+            Details for when a contact texts in on a keyword.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordCallbackEvent.ContactId">
+            <summary>
+            The contact ID which texted in.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordCallbackEvent.PhoneNumber">
+            <summary>
+            The phone number of the contact
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordCallbackEvent.ChannelId">
+            <summary>
+            The channel ID we receved the message on.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordCallbackEvent.KeywordId">
+            <summary>
+            The ID of the keyword that was recognized.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordCallbackEvent.Keyword">
+            <summary>
+            The keyword that was received by Vector.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordCallbackEvent.CampaignId">
+            <summary>
+            The campaign ID to which the keyword is attached.
+            </summary>
+            <remarks>
+            Note that the keyword MUST be attached to a campaign before a callback will be triggered.
+            
+            You can attach a gateway campaign to the keyword, preventing any automatic response by
+            the Vector server if you wish to send your own detailed response via PushCampaign.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordCallbackEvent.SubscriptionId">
+            <summary>
+            The subscription ID which is on the campaign attached to the keyword.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.NewAccountCallbackEvent">
+            <summary>
+            Details for when a new account is created on a root account.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.NewAccountCallbackEvent.Name">
+            <summary>
+            The name of the new account.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.NewAccountCallbackEvent.ParentId">
+            <summary>
+            The ID of the account this new account will be a subacount of.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.StopCallbackEvent">
+            <summary>
+            Details for when a contact texts STOP.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.StopCallbackEvent.AccountName">
+            <summary>
+            The name of the account which the callback was preformed on.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.StopCallbackEvent.ChannelId">
+            <summary>
+            The ID of the channel the STOP message was received on.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.StopCallbackEvent.ContactId">
+            <summary>
+            The ID of the contact which is opting out.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.StopCallbackEvent.ContactAccountId">
+            <summary>
+            The account ID which owns the contact.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.StopCallbackEvent.ContactAccountName">
+            <summary>
+            The name of the account which owns the contact.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.StopCallbackEvent.PhoneNumber">
+            <summary>
+            The phone number of the contact.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.StopCallbackEvent.SubscriptionId">
+            <summary>
+            The ID of the subscription the contact is being opted out of.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent">
+            <summary>
+            Details of a response to a dailog question that was sent.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent.AccountName">
+            <summary>
+            The account name that sent the question.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent.ChannelId">
+            <summary>
+            The ID of the channel we received the answer on.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent.ContactId">
+            <summary>
+            The ID of the contact who responded.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent.ContactAccountId">
+            <summary>
+            The account ID which owns the contact.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent.ContactAccountName">
+            <summary>
+            The name of the account which owns the contact.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent.PhoneNumber">
+            <summary>
+            The phone number which sent the response.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent.Answer">
+            <summary>
+            The response that was sent.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent.QuestionText">
+            <summary>
+            The question that the response is to.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent.DialogCampaignId">
+            <summary>
+            The ID of the dialog campaign that we are processing on.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent.SubscriptionId">
+            <summary>
+            The ID of the subscription attached to the dialog campaign.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.DialogCallbackEvent.QuestionCampaignId">
+            <summary>
+            The ID of the question the response is to.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.CampaignChat">
+            <summary>
+            Details for a chat campaign.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignChat.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignChat.CampaignId">
+            <summary>
+            The campaign this chat object is for.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignChat.AutoGenerateName">
+            <summary>
+            Set if the server should auto generate a name for newly connected SMS clients.
+            </summary>
+            <remarks>
+            If set, then the name generated will be their phone number with the country dialing
+            code replaced with the ISO 3166-1 ISO code.
+            
+            If not set, then the user will be prompted to send a name.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignChat.SummonChannel">
+            <summary>
+            The name of the channel to perform summons on.
+            </summary>
+            <remarks>
+            When a user sends a /SUMMMON command this is the channel we'll use for summoning the 
+            mobile user to chat.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignChat.GroupName">
+            <summary>
+            Set to the group chat name to use for newly connecting SMS users.
+            </summary>
+            <remarks>
+            When set, new SMS users will auto join this group chat.
+            
+            This has no effect on SMS users who join via the SUMMON command.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignChat.SendGreeting">
+            <summary>
+            Set if you with to send the campaign's message to the user before they start their
+            chat session.
+            </summary>
+            <remarks>
+            By turning this off the user is sent nothing when they first connect.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignChat.AutoResponse">
+            <summary>
+            Set if you want to send auto respond when user answers your chat
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignChat.AutoResponseMessage">
+            <summary>
+            Message to send as auto response
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.CampaignDialog">
+            <summary>
+            Details of dialog specific campaign type.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignDialog.AccountId">
+            <summary>
+            The account ID which owns this dialog
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignDialog.CampaignId">
+            <summary>
+            Campaign Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignDialog.FirstQuestionId">
+            <summary>
+            Pointer to the campaign which defines the first question of the dialog.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition">
+            <summary>
+            Details of a valid answer for a campaign question.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition.CampaignId">
+            <summary>
+            campaign Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition.AnswerId">
+            <summary>
+            AnswerId
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition.AccountId">
+            <summary>
+            The account which owns the campaign.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition.QuestionId">
+            <summary>
+            The question which this is a valid answer to.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition.NextCampaignId">
+            <summary>
+            Next campaignid for dialog 
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition.ContentId">
+            <summary>
+            Defines the content for multiple choise answers.
+            </summary>
+            <remarks>
+            On answers for multiple choise questions, this is REQUIRED.  For other question types this is INVALID.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition.Validator">
+            <summary>
+            Validator for open_reponse answers
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition.OrderingId">
+            <summary>
+            A user definable ID to order the answers by on multiple choise questions.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition.Value">
+            <summary>
+            The value that is actually saved when we receive this answer.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition.Label">
+            <summary>
+            Label
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CampaignQuestionAnswerDefinition.Description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Channel">
+            <summary>
+            Channel deatils
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.Type">
+            <summary />
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.Name">
+            <summary />
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.Label">
+            <summary />
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.Description">
+            <summary />
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.DefaultLanguageId">
+            <summary>
+            The default language type for a channel.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.IsActive">
+            <summary>
+            Set if the channel is currently active and running.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.IsMediaEnabled">
+            <summary>
+            Set if the channel supports MMS.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.OverrideGroup">
+            <summary>
+            Gets or sets the language override group for the channel
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.ThreadSleep">
+            <summary>
+            Thread sleep timeout in milliseconds
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.AllowVerify">
+            <summary>
+            Set if we can send handset verifications on.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.UseLongCodes">
+            <summary>
+            Set if this channel uses long codes or not.
+            </summary>
+            <remarks>
+            Used to find out if we should pull a list of long codes when we push to the channel ID or name instead of
+            a specific long code.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.DefaultLanguage">
+            <summary>
+            The default language type for a channel.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Channel.ChannelType">
+            <summary>
+            Enumeration mapping for ChannelTypeId
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ContactAttributeCategory">
+            <summary>
+            Account Attrribute Category Details
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactAttributeCategory.Name">
+            <summary>
+            Account Attribute Category Name
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactAttributeCategory.Description">
+            <summary>
+            Account Attribute Category Description
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ContactAttributeDefinition">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactAttributeDefinition.AccountId">
+            <summary>
+            The Account ID that owns this attribute.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactAttributeDefinition.DataTypeId">
+            <summary>
+            The ID of the data type for this attribute.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactAttributeDefinition.CategoryId">
+            <summary>
+            The Id of category
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactAttributeDefinition.Name">
+            <summary>
+            Name of the attribute definition.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactAttributeDefinition.Description">
+            <summary>
+            A full description of this attribute.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ContactKeyword">
+            <summary>
+            Gives you keyword details of a contact
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactKeyword.AccountId">
+            <summary>
+            AccountId
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactKeyword.CampaignAccountId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactKeyword.CampaignId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactKeyword.ContactAccountId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactKeyword.ContactId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactKeyword.KeywordAccountId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactKeyword.KeywordId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactKeyword.SubscriptionAccountId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactKeyword.SubscriptionId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.CouponExternalCode">
+            <summary>
+            Coupon Code assosiated with the External Coupon List
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Models.CouponExternalCode.#ctor">
+            <summary/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponExternalCode.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponExternalCode.ListId">
+             <summary>
+             External Coupon list Id associated with this Coupon Code 
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponExternalCode.ContactId">
+            <summary>
+            The Customer who received the external coupon code
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponExternalCode.CouponCode">
+            <summary>
+            The external coupon code
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponExternalCode.ReservationToken">
+            <summary>
+            reservation token Identifier for this coupon code 
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponExternalCode.Created">
+            <summary>
+            The date when the external coupon code is created
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.CouponOffer">
+            <summary>
+            Coupon Offer Details
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponOffer.AccountId">
+            <summary>
+            The account this offer belongs to
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponOffer.CampaignId">
+            <summary>
+            The campaign this offer is for
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponOffer.RegularOffer">
+            <summary>
+            Regular offer (without coupon)
+            </summary>
+            <example>
+            $10.00
+            </example>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponOffer.NewOffer">
+            <summary>
+            Coupon offer (when coupon applied)
+            </summary>
+            <example>
+            $0.00
+            </example>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponOffer.ImageURL">
+            <summary>
+            Offer image URL
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponOffer.TermsAndConditions">
+            <summary>
+            Terms and conditions of this offer
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CouponOffer.UrlBase">
+            <summary>
+            URL to use as base when sending to user
+            </summary>
+            <example>
+            http://370.bz/
+            </example>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ExternalCouponList">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Models.ExternalCouponList.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ExternalCouponList.AccountId">
+            <summary>
+            The account ID that external coupon list belongs to
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ExternalCouponList.Name">
+            <summary>
+            Name of the external coupon list 
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ExternalCouponList.Description">
+            <summary>
+            Description for the external coupon list
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ExternalCouponList.Inheritable">
+            <summary>
+            external coupon list can be shared with the child accounts or not
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ExternalCouponList.TotalCodesAvailable">
+            <summary>
+            Total number of codes available
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ExternalCouponList.Url">
+            <summary>
+            Blob URL pointing to the CSV file should have all coupon codes in one column with  "CouponCodes" as the column header (OPTIONAL)
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ExternalCouponList.CouponCodes">
+            <summary>
+            A list of coupon codes (OPTIONAL)
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.KeywordContact">
+            <summary>
+            Provides details of a contact on a keyword
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.AccountId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.KeywordId">
+            <summary>
+            The keyword to which the contact opted in with.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.Email">
+            <summary>
+            Email Address
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.PhoneHardErrorCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.PhoneHardErrorSince">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.PhoneLastHardError">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.PhoneLastSoftError">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.PhoneNumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.PhoneSoftErrorCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.PhoneSoftErrorSince">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.PhoneStatusId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.PhoneTotalHardErrorCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.PhoneTotalSoftErrorCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.KeywordContact.PreferredLanguageId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Link">
+            <summary>
+            Describes a link that can be sent in a razor template.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Link.AccountId">
+            <summary>
+            The account ID which owns the link
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Link.CampaignId">
+            <summary>
+            The campaign this link is part of.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Link.LinkTypeId">
+            <summary>
+            The type of link this is.  Either Static or Dynamic
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Link.RequestLocation">
+            <summary>
+            Set if we should request the user's location before redirecting.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Link.Name">
+            <summary>
+            The name of the link.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Link.ShortBaseURL">
+            <summary>
+            The short URL to use.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Link.RedirectURL">
+            <summary>
+            The URL we should redirect to.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Link.ContactAttributeDefinitionId">
+            <summary>
+            The contact attribute ID to append to the URL if desired.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Link.UpdateContactAttributeDefinitionId">
+            <summary>
+            The contact attribute ID to be updated.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Link.UpdateContactAttributeValue">
+            <summary>
+            The value to update the contact attribute to.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Link.LinkType">
+            <summary>
+            Enumeration mapping to LinkTypeId
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.RequestTn">
+            <summary>
+            USed to request a LongCode
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.RequestTn.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.RequestTn.Id">
+            <summary>
+            The ID of the order.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.RequestTn.Quantity">
+            <summary>
+            The number of phone numbers requested.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.RequestTn.Pattern">
+            <summary>
+            The search pattern used for provisioning this order.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.RequestTn.OrderBy">
+            <summary>
+            The type of order that is being provisioned.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.RequestTn.OrderStatus">
+            <summary>
+            The current status of the order
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.RequestTn.PhoneNumbers">
+            <summary>
+            List of phone numbers that have been provisioned so far.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.SearchTn">
+            <summary>
+            Details of a TN search
+            </summary>
+            
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SearchTn.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SearchTn.RequestedQuantity">
+            <summary>
+            The number of phone numbers requested.
+            </summary>
+            <remarks>
+            Renamed from "Quantity" to avoid confusion with the actually found number of phone numbers.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SearchTn.Pattern">
+            <summary>
+            The search pattern that was used.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SearchTn.SearchBy">
+            <summary>
+            The type of search that was performed.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SearchTn.Created">
+            <summary>
+            When the search was preformed.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SearchTn.ExpirationDate">
+            <summary>
+            When we will no longer allow using this search item for orders.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SearchTn.PhoneNumbers">
+            <summary>
+            List of phone numbers that were found.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.CallHistory">
+            <summary>
+            Describes the Call history
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.LogBase">
+            <summary>
+            Base for (almost) all model classes.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.LogBase.Id">
+            <summary>
+            Primary key for the model.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.LogBase.LogDate">
+            <summary>
+            Date the entry has been logged
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CallHistory.AccountId">
+            <summary>
+            The account ID the source belonged to.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CallHistory.Command">
+            <summary>
+            	The IRC command that was sent
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CallHistory.MessageSent">
+            <summary>
+            The message that the user sent
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CallHistory.Source">
+            <summary>
+            Who caused this event to occur.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CallHistory.Target">
+            <summary>
+            	Who (or what) this event was bound to.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ChatConversationLog">
+            <summary>
+            Chat Conversation Log Details
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatConversationLog.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatConversationLog.ConversationId">
+            <summary>
+            conversation Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatConversationLog.AutoResponded">
+            <summary>
+            True if target already got auto-response message
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatConversationLog.ContactId">
+            <summary>
+            A contact you are talking to
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatConversationLog.DisplayName">
+            <summary>
+            	A name to display
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatConversationLog.LastMessage">
+            <summary>
+            Last incoming message timestamp
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatConversationLog.RealTarget">
+            <summary>
+            	Real target -- holding phone number for SMS users
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatConversationLog.Target">
+            <summary>
+            Collocutor(s) -- nick or channel name
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatConversationLog.UnreadCount">
+            <summary>
+            Total messages unread.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ChatMessageLog">
+            <summary>
+            Chat Message Log
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatMessageLog.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatMessageLog.ConversationId">
+            <summary>
+            Conversation ID (see ChatConversationLog)
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatMessageLog.Incoming">
+            <summary>
+            Incoming/Outgoing flag
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatMessageLog.Message">
+            <summary>
+            When this message was sent.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatMessageLog.Sender">
+            <summary>
+            Who send this message
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ChatMessageLog.Viewed">
+            <summary>
+            	False if was not seen by the user, otherwise - true
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Contact">
+            <summary>
+            Contact details
+            </summary>
+            <remarks>
+            A contact is a unique phone number and/or email address per account.
+            
+            Note that either PhoneNumber or Email are required.  You may have both, but you must have at least one of these two.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Contact.AccountId">
+            <summary>
+            The account that this contact belongs to.
+            </summary>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.Account"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Contact.PhoneNumber">
+             <summary>
+             Mobile number if available.
+             </summary>
+             <remarks>
+             Either this or the Email field are _REQUIRED_.
+             
+             Note that contact phone numbers must have the dialing prefix on them to be valid. Phone number validity is
+             checked according to the supplied country code. The currently supported country codes are:
+             * +1   -- United States and Canada
+             * +44  -- United Kingdom
+             * +52  -- Mexico
+             * +86  -- China (main land)
+             * +852 -- China (Hong Kong)
+             * +853 -- China (Macau)
+             * +886 -- China (Taiwan)
+              
+             Valid Example: +12215550100
+             
+             While the area code 221 (as of this writing) is not currently in use, it follows the NANP rules for a valid
+             area code.
+            
+             Invalid Examples:
+             * +11234560100 -- Area codes cannot start with 0 or 1
+             * +12210550100 -- Exchange codes cannot start with 0 or 1
+             * +15129110000 -- Exchange and area codes cannot have the form of X11
+             * +18005550100 -- Toll free numbers are not allowed.
+             * +19005550100 -- Toll numbers are not allowed.
+             </remarks>
+             <see cref="P:ThreeSeventy.Vector.Client.Models.Contact.Email"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Contact.Email">
+            <summary>
+            Email address of the contact.
+            </summary>
+            <remarks>
+            Either this or the PhoneNumber field are _REQUIRED_.
+            </remarks>
+            <see cref="P:ThreeSeventy.Vector.Client.Models.Contact.PhoneNumber"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Contact.Attributes">
+             <summary>
+             List of attributes set on this contact
+             </summary>
+             <remarks>
+             You can use contact attributes to set pieces of tagged data on each contact. These data can then be used in
+             contact lists to help filter your contacts to a select group on large pushes.
+            
+             Currently the SDK does not support defining these attributes, but you can use the Vector Portal or the API
+             to do this. It is a one time setup, and once defined the attribute does not need to be defined again.
+             </remarks>
+             <seealso cref="T:ThreeSeventy.Vector.Client.Models.ContactAttribute"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Contact.Subscriptions">
+            <summary>
+            List of subscriptions details for this contact.
+            </summary>
+            <remarks>
+            The contact may be opted out, but still listed here. There are various enabled fields which detail how the
+            contact wishes to receive messages.
+            </remarks>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.ContactSubscription"/>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Campaign">
+            <summary>
+            Details of a campaign that are sent to a contact.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Campaign.AccountId">
+            <summary>
+            The account ID to which the campaign belongs.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Campaign.SubscriptionId">
+            <summary>
+            The ID of the subscription that contacts who respond to this campaign are opted into.
+            </summary>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.Subscription"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Campaign.Name">
+            <summary>
+            The campaign's name.
+            </summary>
+            <remarks>
+            This is a free form name.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Campaign.CampaignTypeId">
+            <summary>
+            The type of campaign.
+            </summary>
+            <seealso cref="P:ThreeSeventy.Vector.Client.Models.Campaign.CampaignType"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Campaign.ContentId">
+            <summary>
+            The ID of the content that this campaign sends.
+            </summary>
+            <remarks>
+            This is not used for Gateway or Survey campaign types.
+            </remarks>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.Content"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Campaign.Session">
+            <summary>
+            Indicates if this campaign will start a new session
+            </summary>
+            <remarks>
+            If set then when the contact texts into an attached keyword or the campaign is pushed to a contact they are
+            placed into a session. This is used by dialog campaigns to manage responses without colliding with reserved
+            keywords.
+            Currently this value cannot be customized.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Campaign.SessionLength">
+            <summary>
+            The duration of sessions in milliseconds from start.
+            </summary>
+            <remarks>
+            Currently this value cannot be customized.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Campaign.UserData">
+            <summary>
+            Arbitrary user data field.
+            </summary>
+            <remarks>
+            This an area to store free form data.
+            
+            The Vector Portal uses this field to store some UI hints.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Campaign.SingleUse">
+            <summary>
+            Indicates if the campaign is a one time use campaign.
+            </summary>
+            <remarks>
+            Single use campaigns can only be sent to a contact once.  If the campaign is pushed to a contact more than
+            once then nothing is sent to that contact.
+            
+            If the contact texts into a keyword that is attached to a single use campaign then they are sent the contents of
+            the SingleUseContentId value.
+            </remarks>
+            
+            <see cref="P:ThreeSeventy.Vector.Client.Models.Campaign.SingleUseContentId"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Campaign.SingleUseContentId">
+            <summary>
+            This is the ID of the content to send if a contact texts into a single use campaign more than once.
+            </summary>
+            <remarks>
+            This field is only valid for campaigns that are marked as SingleUse
+            
+            This content is only sent if a contact texts into a keyword attached to the single use campaign. If the campaign
+            is pushed to the contact then nothing is sent to them.
+            </remarks>
+            <see cref="P:ThreeSeventy.Vector.Client.Models.Campaign.SingleUse"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Campaign.CampaignType">
+            <summary>
+            Enumeration mapping for CampaignTypeId
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ContactAttribute">
+            <summary>
+            User defined attribute data.
+            </summary>
+            <remarks>
+            Contact attributes provide a way to save data to contacts via the API or a Dialog.
+            
+            Attributes must be defined before they can be used.  The SDK does not currently support defining these
+            attributes directly.  However you can do so using either the Vector Portal or making direct API calls.
+            This only needs to be done once per attribute definition.
+            
+            The name of the attribute must be unique, and must follow standard programming naming
+            conventions (must start with an underscore or letter, followed by letters, numbers, and underscores).
+            
+            Child accounts inherit those attributes defined by their parent.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactAttribute.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactAttribute.ContactId">
+            <summary>
+            Contact Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactAttribute.Name">
+            <summary>
+            The name of the attribute that is set.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactAttribute.Value">
+            <summary>
+            The value set for this attribute.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ContactSubscription">
+            <summary>
+            Details for a contact's subscription options.
+            </summary>
+            <remarks>
+            IMPORTANT NOTE: Setting the correct subscription type is important for following correct CTIA compliance
+            guidelines.
+            </remarks>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.Contact"/>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.Subscription"/>
+            <seealso cref="T:ThreeSeventy.Vector.Client.SubscriptionType"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactSubscription.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactSubscription.ContactId">
+            <summary>
+            ContactID
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactSubscription.SubscriptionId">
+            <summary>
+            The subscription ID the contact is a member of.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactSubscription.SmsEnabled">
+            <summary>
+            Set if the contact wishes to receive SMS messages.
+            </summary>
+            <remarks>
+            Note that according to current CTIA requirements we MUST send a handset verification when a contact is 
+            manually opted in to a recurring subscription.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactSubscription.MmsEnabled">
+            <summary>
+            Set if the contact wishes to receive MMS messages.
+            </summary>
+            <remarks>
+            Not currently used.
+            
+            Note that according to current CTIA requirements we MUST send a handset verification when a contact is 
+            manually opted in.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactSubscription.EmailEnabled">
+            <summary>
+            Set if the contact wishes to receive email messages.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContactSubscription.VoiceEnabled">
+            <summary>
+            Set if the contact wishes to receive voice messages.
+            </summary>
+            <remarks>
+            Not currently used.
+            </remarks>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ActionPushCampaign">
+            <summary>
+            Used for sending a campaign to a list of contacts.
+            </summary>
+            <remarks>
+            Note that the list of contacts can be specified in a variety of ways:
+            * Targets: This is a list of phone numbers and/or email addresses.
+            * Contacts: This is a list of contact ids.
+            * ContactListId: This is the ID of a contact list which runs on the TrueDialog servers.
+            
+            All three types can be specified and the lists will be merged with duplicate contacts removed.
+            </remarks>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.m_channels">
+            <summary>
+            So we won't return a null value for the list object.
+            </summary>
+        </member>
+        <member name="F:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.m_targets">
+            <summary>
+            So we won't return a null value for the list object.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.AccountId">
+            <summary>
+            The AccountID which this event was run as.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.Channels">
+            <summary>
+            The channels the campaign will be (or was) sent to.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.Targets">
+            <summary>
+            A list of targets this event will be (or was) sent to.
+            </summary>
+            <remarks>
+            Targets can be a mixture of email addresses, phone numbers, and contact ids.
+            
+            Note that in order for the system to differentiate a phone number from a contact ID, phone numbers must be
+            prefixed with their country dialing code. E.g.: {@code (221) 555-0100} should be listed as {@code +12215550100}
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.ContactListIds">
+            <summary>
+            The contact lists to use for getting a list of contacts.
+            </summary>
+            <remarks>
+            Generation of contact lists are not yet supported by this SDK, but they can be created via 
+            raw API calls and using our Portal.  If you do create a contact list in this way, you can
+            supply the generated ID here without any issues.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.CampaignId">
+            <summary>
+            The campaign to send (or was sent)
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.From">
+            <summary>
+            The "from" line to use for sending to an email channel.
+            </summary>
+            <remarks>
+            If it is not filled in, a default from field will be used.
+            </remarks>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.Campaign"/>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.Content"/>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.ContentTemplate"/>
+            <seealso cref="T:ThreeSeventy.Vector.Client.CampaignType"/>
+            <seealso cref="T:ThreeSeventy.Vector.Client.EncodingType"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.IgnoreSingleUse">
+            <summary>
+            Ignore a campaign's SingleUse flag.
+            </summary>
+            <remarks>
+            If a campaign is marked as single use, then it will only get sent to a particular 
+            contact once and only once.  Setting this value will force the message to get
+            sent regardless of the SingleUse flag setting on the campaign.
+            
+            This can be handy if you have a particular contact who did not receive the message
+            and you would like to resend it to them.
+            </remarks>
+            <seealso cref="P:ThreeSeventy.Vector.Client.Models.Campaign.SingleUse"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.ForceOptIn">
+            <summary>
+            Forces the contacts to be opted into the subscription defined on the campaign.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.Execute">
+            <summary>
+            Set true if the action should be executed on creation
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.Message">
+            <summary>
+            The message text for use on gateway campaigns.
+            </summary>
+            <remarks>
+            IMPORTANT: You cannot send Razor formatted text with this system.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ActionPushCampaign.Subject">
+            <summary>
+            The "Subject" line to use when sending to an email channel.
+            </summary>
+            <remarks>
+            This field is ignored when being sent to all other types of channels.
+            </remarks>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Keyword">
+            <summary>
+            A reserved keyword
+            </summary>
+            <remarks>
+            Keywords provide a way for contacts to text into the system to initiate a campaign.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Keyword.AccountId">
+            <summary>
+            The account which owns this keyword.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Keyword.ChannelId">
+            <summary>
+            The channel this keyword is reserved on.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Keyword.CampaignId">
+            <summary>
+            The campaign this keyword is currently attached to.
+            </summary>
+            <remarks>
+            If this is NULL then the keyword is not attached to any campaign and will not generate a response.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Keyword.Name">
+            <summary>
+            The keyword name to reserve.
+            </summary>
+            <remarks>
+            Keywords cannot contain spaces.
+            
+            Keywords are shared across a channel, so if someone else has a keyword of the same name you will 
+            have to select a different keyword or use a different channel where it is not already reserved.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Keyword.CallbackRequired">
+            <summary>
+            Set if a callback should be generated on this keyword.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Keyword.StatusIdHack">
+            <summary>
+            HACK: Mapping "status" to "StatusId"
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Report">
+            <summary>
+            Returned details of a report's metadata.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Report.AccountId">
+            <summary>
+            The account to which this report belongs.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Report.CategoryId">
+            <summary>
+            The type of report this is.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Report.ReportName">
+            <summary>
+            The name of the report.
+            </summary>
+            <remarks>
+            This is the name sent when asking to execute the report.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Report.DisplayName">
+            <summary>
+            The display name of the report in the UI.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Report.Columns">
+            <summary>
+            List of columns that are defined on this report.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ReportColumn">
+            <summary>
+            Details of a report's columns
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ReportColumn.ColumnName">
+            <summary>
+            The name of the report's column
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ReportColumn.DataTypeId">
+            <summary>
+            The type of data this column returns.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ReportColumn.IsNullable">
+            <summary>
+            Set if this column can return a NULL
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Subscription">
+            <summary>
+            Represents a subscription that a contact can opt into and out of.
+            </summary>
+            <remarks>
+            Subscriptions provide your contacts a way to select what types messages they wish to, or not to, receive.  It 
+            also allows them to specify how they wish to receive these messages.
+            
+            IMPORTANT NOTE: Setting the correct subscription type is important for following correct CTIA compliance
+            guidelines.
+            </remarks>
+            <seealso cref="T:ThreeSeventy.Vector.Client.Models.ContactSubscription"/>
+            <seealso cref="P:ThreeSeventy.Vector.Client.Models.Subscription.SubscriptionType"/>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Models.Subscription.#ctor">
+            <summary />
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Subscription.AccountId">
+            <summary>
+            This is the account which owns the subscription object.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Subscription.Name">
+            <summary>
+            The name of this subscription
+            </summary>
+            <remarks>
+            This is the name that is used when asking contacts to select a subscription to opt out of 
+            (in the case where they are opted into more than one subscription)
+            
+            The name cannot contain spaces.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Subscription.Label">
+            <summary>
+            The pretty display name for the subscription.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Subscription.SubscriptionTypeId">
+            <summary>
+            The type of subscription, either one-time or recurring.
+            </summary>
+            <remarks>
+            Recurring subscriptions are for situations where multiple messages are going to be sent to a contact on an
+            ongoing basis.  Most types of subscriptions will fall into this category.  A good example is for a marketing
+            campaign where events and coupons might be sent out to a list of interested customers.
+            
+            OneTime subscriptions are for one off messages where the intention is to send a single message to that
+            customer once.  A good example would be to notify specific people they have a package waiting in an office,
+            or that their scheduled service call will be arriving shortly.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Subscription.Frequency">
+            <summary>
+            Number of messages (on average) per month a contact can expect to get on this subscription.
+            </summary>
+            <remarks>
+            This value is only relevant to Recurring subscriptions.  It is ignored for OneTime subscriptions.
+            The default is 30 messages per month.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Subscription.IsDefault">
+            <summary>
+            This is the default subscription that will be created when the account is created. 
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Subscription.SubscriptionType">
+            <summary>
+            This is an enumeration wrapper around SubscriptionTypeId
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ApiKey">
+            <summary>
+            A new Api Key
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ApiKey.Label">
+            <summary>
+            User defined identificator
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ApiKey.Type">
+            <summary>
+            Api Key type: 1 for a Common key, 2 for a Temporary key
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ApiKey.ValidTo">
+            <summary>
+            A date and time this key will be valid to.
+            Applicable for Temporary keys only.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ApiKey.Key">
+            <summary>
+            Api Key (used as username for login)
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ApiKey.TypeId">
+            <summary>
+            Type of a key
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ApiKey.LastActivity">
+            <summary>
+            A date and time this key was last used.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ApiKey.AccountId">
+            <summary>
+            An account id this key has direct access to.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ApiKey.UserName">
+            <summary>
+            Username this key belongs to.
+            Applicable to Master keys only.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.SubscriptionContact">
+            <summary>
+            Contact Subscription Details
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SubscriptionContact.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SubscriptionContact.Contact">
+            <summary>
+            Contact Information.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SubscriptionContact.ContactId">
+            <summary>
+            Contact Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SubscriptionContact.EmailEnabled">
+            <summary>
+            Email Enabled Details
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SubscriptionContact.MmsEnabled">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SubscriptionContact.SmsEnabled">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SubscriptionContact.Subscription">
+            <summary>
+            	Subscription Details
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SubscriptionContact.SubscriptionId">
+            <summary>
+            Subscription Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.SubscriptionContact.VoiceEnabled">
+            <summary>
+            Voice Enabled Details
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.User">
+            <summary>
+            Used to work with the User
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.UserName">
+            <summary>
+            The login name for the new user.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.Password">
+            <summary>
+            The login password for the new user.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.PasswordConfirmation">
+            <summary>
+            Confirmation password, must match Password.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.AccountId">
+            <summary>
+            The account this user is allowed to access.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.Email">
+            <summary>
+            Email address of the user.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.FirstName">
+            <summary>
+            The user's first or given name.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.LastName">
+            <summary>
+            The user's last or family name.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.PhoneNumber">
+            <summary>
+            The user's mobile phone number.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.IsAdmin">
+            <summary>
+            Gets whether the memebrship user is in the Administration role
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.ApiKey">
+            <summary>
+            The Master Api Key for this user.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.IsChatUser">
+            <summary>
+            User is as chat agent
+            </summary>
+            <remarks>
+            Chat agent has access to Call Center only.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.Comment">
+            <summary> 
+            Gets or sets application-specific information for the membership user. 
+            </summary> 
+             
+            <returns> 
+            Application-specific information for the membership user. 
+            </returns> 
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.IsApproved">
+            <summary> 
+            Gets or sets whether the membership user can be authenticated. 
+            </summary> 
+             
+            <returns> 
+            true if the user can be authenticated; otherwise, false. 
+            </returns> 
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.IsLockedOut">
+            <summary> 
+            Gets a value indicating whether the membership user is locked out and unable to be validated. 
+            </summary> 
+             
+            <returns> 
+            true if the membership user is locked out and unable to be validated; otherwise, false. 
+            </returns> 
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.LastLockoutDate">
+            <summary>
+            Gets the most recent date and time that the membership user was locked out.
+            </summary>
+            <returns>
+            A <see cref="T:System.DateTime"/> object that represents the most recent date and time that the membership user was locked out.
+            </returns>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.CreationDate">
+            <summary>
+            Gets the date and time when the user was added to the membership data store.
+            </summary>
+            <returns>
+            The date and time when the user was added to the membership data store.
+            </returns>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.LastLoginDate">
+            <summary>
+            Gets or sets the date and time when the user was last authenticated.
+            </summary>
+            <returns>
+            The date and time when the user was last authenticated.
+            </returns>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.LastActivityDate">
+            <summary>
+            Gets or sets the date and time when the membership user was last authenticated or accessed the application.
+            </summary>
+            <returns>
+            The date and time when the membership user was last authenticated or accessed the application.
+            </returns>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.User.LastPasswordChangedDate">
+            <summary>
+            Gets the date and time when the membership user's password was last updated.
+            </summary>
+            <returns>
+            The date and time when the membership user's password was last updated.
+            </returns>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.UserChatToken">
+            <summary>
+            Return value for a user chat token request.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.UserChatToken.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.UserChatToken.Token">
+            <summary>
+            The login token.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.UserChatToken.UserName">
+            <summary>
+            The user name this token is for (for reference)
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.UserChatToken.ExpirationDate">
+            <summary>
+            When this token will no longer be valid.  Time is in UTC.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.UserPassword">
+            <summary>
+            Used for updating a user's password.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.UserPassword.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.UserPassword.UserName">
+            <summary>
+            User name.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.UserPassword.NewPassword">
+            <summary>
+            The new login password for the user.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.UserPassword.ConfirmPassword">
+            <summary>
+            Confirmation password.  Must match NewPassword.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.AudioCall">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AudioCall.ToNumber">
+            <summary>
+            Phone number to which the call will be made
+            </summary>
+            
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.AudioCall.AudioUrl">
+            <summary>
+            Audio URL to play (mp3 or wav formats only)  
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.BridgeCall">
+            <summary>
+            Used to Bridge two calls
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BridgeCall.PhoneNumber1">
+            <summary>
+            First phone number in the bridge
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.BridgeCall.PhoneNumber2">
+            <summary>
+            Second phone number in the bridge
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.CallForward">
+            <summary>
+            Lets you add callforwarding number on a long code
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.LongCode">
+            <summary>
+            Longcode details
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.LongCode.AccountId">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.LongCode.ChannelId">
+            <summary>
+            Channel ID
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.LongCode.Code">
+            <summary>
+            Long Code
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.LongCode.ForwardNumber">
+            <summary>
+            Call Forward Number
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.LongCode.ForwardStatus">
+            <summary>
+            Call Forward Status
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.LongCode.CallForwardStatus">
+            <summary>
+            Call Forward Status 
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.LongCode.ForwardVerificationCode">
+            <summary>
+            Verification Code
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CallForward.RequestCallForwardNumber">
+            <summary>
+            Request to change the call forward number
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.CallForwardVerification.RequestVerificationCode">
+            <summary>
+            Request verification code
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ConferenceCall">
+            <summary>
+            Used to make a conference Call
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ConferenceCall.ToPhoneNumber">
+            <summary>
+            Phone Number to Join an existing conference else create a new conference
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.VoiceCall">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.VoiceCall.ToNumber">
+            <summary>
+            Phone number to which the call will be made
+            </summary>
+            
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.VoiceCall.SpeakSentance">
+            <summary>
+            Sentance to speak  
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.Content">
+            <summary>
+            Provides a container for templates.
+            </summary>
+            <remarks>
+            Content objects group related templates.
+            
+            IMPORTANT NOTE:
+            
+            There is no requirement to have more than one template under a content object.  However you must have at least 
+            one template and it must be part of a content group.
+            
+            Additionally, you may only have one template per type per language. For example, you may have a template for
+            SMS/ENGLISH and another template for SMS/FRENCH, but not two templates with SMS/ENGLISH.
+            </remarks>
+            <seealso cref="T:ThreeSeventy.Vector.Client.ChannelType"/>
+            <seealso cref="T:ThreeSeventy.Vector.Client.LanguageType"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Content.AccountId">
+            <summary>
+            The account which owns this content object.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Content.Name">
+            <summary>
+            The name of this content object.
+            </summary>
+            <remarks>
+            This is a free form name you can use to provide a human readable identifier to each object
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.Content.Description">
+            <summary>
+            A free form description field.
+            </summary>
+            <remarks>
+            The free form description field allows you to set a human readable detailed description of the object.
+            </remarks>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ContentTemplate">
+            <summary>
+            A specific content template descriptor.
+            </summary>
+            <remarks>
+            Templates hold the actual content that get sent to your contacts.
+            </remarks>
+            <seealso cref="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.ChannelType"/>
+            <seealso cref="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.EncodingType"/>
+            <seealso cref="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.LanguageType"/>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.AccountId">
+            <summary>
+            The account which owns this template object.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.ContentId">
+            <summary>
+            The content to which this template falls under.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.LanguageId">
+            <summary>
+            The language this template is in.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.ChannelTypeId">
+            <summary>
+            The type of channel this template is intended to be sent on.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.EncodingTypeId">
+            <summary>
+            The format of the template data.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.Template">
+            <summary>
+            The actual template
+            </summary>
+            <remarks>
+            Note that the format of this string is dictated by the EncodingTypeId.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.LanguageType">
+            <summary>
+            Enumeration wrapper for LanguageTypeId
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.ChannelType">
+            <summary>
+            Enumeration wrapper for ChannelTypeId
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ContentTemplate.EncodingType">
+            <summary>
+            Enumeration wrapper for EncodingTypeId
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Models.ErrorDetail">
+            <summary>
+            Details for an error message returned by the HTTP endpoints.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ErrorDetail.ErrorCode">
+            <summary>
+            A generic error code for looking up the details.  Useful for i18n.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ErrorDetail.ErrorCodeId">
+            <summary>
+            Integer version of the above to better support (de)serialization.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ErrorDetail.ErrorMessage">
+            <summary>
+            A basic error message to use if looking up by error code does not succeed.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ErrorDetail.ObjectType">
+            <summary>
+            The type of object that was being validated.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.Models.ErrorDetail.PropertyName">
+            <summary>
+            Details the property name that the error specifically applies to.
+            This can be NULL if the error does not apply to any one property or no properties at all.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.IContext">
+            <summary>
+            Interface for a context for getting repositories on an entity.
+            </summary>
+            <remarks>
+            This abstraction is provided as a hook for generating unit test mocks.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IContext.Repository``1(System.Object)">
+            <summary>
+            Gets an IRepository for the specified entity.
+            </summary>
+            <remarks>
+            If the entity has a set of required arguments, then they need to be supplied with this
+            function here.
+            
+            E.g.: For the content:
+            var contentRepo = context.Repository&lt;Content&gt;(new { accountId = 5 });
+            
+            Note that any required parameters which are mapped to a different HTTP name, will use
+            the name in the model, and not the mapped HTTP name.
+            
+            E.g. the following will result in an exception:
+            var contentRepo = context.Repository&lt;Content&gt;(new { accountId = 5 });
+            </remarks>
+            <typeparam name="TEntity">The type of entity to get the repository of.</typeparam>
+            <param name="args">A list of required arguments for this model.</param>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.Rest.CouponRestContext">
+            <summary>
+            Used to interact with the Coupon related endpoints
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.T70Context">
+            <summary>
+            The TrueDialog REST context.
+            </summary>
+            <remarks>
+            Specific implementation of RestContext
+            </remarks>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.RestContext">
+            <summary>
+            Base for a REST context.
+            </summary>
+            <remarks>
+            Supports configuring a set of models to a set of URLs and then getting 
+            a RestRepository for those models when needed.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestContext.#ctor(ThreeSeventy.Vector.Client.IConfiguration,ThreeSeventy.Vector.Client.IRestClientFactory)">
+            <summary />
+            <remarks>
+            Note that the base URI can be overridden in the specific entity's by specifying an Absolute URI kind.
+            </remarks>
+            <param name="config">Configuration details</param>
+            <param name="clientFactory">The factory object for creating new instances of IRestClient</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestContext.GetRetryStrategy">
+            <summary>
+            Builds a RetryStrategy object based on the config.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestContext.GetRetryPolicy">
+            <summary>
+            Gets the current retry policy.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestContext.OnModelCreating(ThreeSeventy.Vector.Client.RestModelBuilder)">
+            <summary>
+            Abstract method for configuring the model via a fluent interface.
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestContext.Repository``1(System.Object)">
+            <summary>
+            Gets a RestRepository for the specified entity.
+            </summary>
+            <remarks>
+            If the entity has a set of required arguments, then they need to be supplied with this
+            function here.
+            
+            E.g.: For the content:
+            var contentRepo = context.Repository&lt;Content&gt;(new { AccountId = 5 });
+            
+            Note that any required parameters which are mapped to a different HTTP name, will use
+            the name in the model, and not the mapped HTTP name.
+            
+            E.g. the following will result in an exception:
+            var contentRepo = context.Repository&lt;Content&gt;(new { accountId = 5 });
+            </remarks>
+            <typeparam name="TEntity">The type of entity to get the repository of.</typeparam>
+            <param name="args">A list of required arguments for this model.</param>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RestContext.BaseUri">
+            <summary>
+            Gets or sets the base URI for calls to the REST endpoint.
+            </summary>
+            <remarks>
+            Models may individual override this setting by specifying a UrlKind of Absolute.
+            
+            The base URI parameter will be removed at some later date when we start tying the
+            SDKs to a specific API version.
+            </remarks>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RestContext.Configuration">
+            <summary>
+            Gets the configuration for this context.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.#ctor(ThreeSeventy.Vector.Client.IConfiguration,ThreeSeventy.Vector.Client.IRestClientFactory)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="config">Configuration details</param>
+            <param name="clientFactory">The IRestClientFactory implementation to use (OPTIONAL)</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.#ctor(ThreeSeventy.Vector.Client.IRestClientFactory)">
+            <summary>
+            Default constructor
+            </summary>
+            <remarks>
+            This will setup a T70Context which hits production.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.OnModelCreating(ThreeSeventy.Vector.Client.RestModelBuilder)">
+            <summary>
+            Sets up the model for the TrueDialog REST clients.
+            </summary>
+            <param name="modelBuilder">The model building configuration object.</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.AttachKeywordTo(ThreeSeventy.Vector.Client.Models.Keyword,System.Nullable{System.Int32})">
+            <summary>
+            Provides a way to attach (or detach) a keyword to (from) a campaign.
+            </summary>
+            <param name="keyword">The keyword to attach (or detach)</param>
+            <param name="campaignId">The ID of the campaign to attach to (NULL to detach the keyword)</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.ContactSearch(System.Int32,System.String)">
+            <summary>
+            Searches for a contact via a wild card pattern.
+            </summary>
+            <remarks>
+            This provides a way to search for a contact via a wild card which will
+            match to a PhoneNumber or Email address.
+            
+            This method is more efficient than attempting to filter on the list of all 
+            contacts returned by GetAll(), as this will preform a server side search.
+            
+            Contacts returned by this endpoint will not contain their subscription
+            information or attributes.
+            </remarks>
+            <param name="accountId">The account to search under.</param>
+            <param name="wildcard">The wild card pattern to apply.</param>
+            <returns>A list of contacts</returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.GetAccountAttribute(System.Int32,System.String)">
+            <summary>
+            Get the Account Attribute 
+            </summary>
+            <param name="accountId"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.SetAccountAttributeValue(System.Int32,System.String,System.String)">
+            <summary>
+            POST the Account Attribute value 
+            </summary>
+            <param name="accountId"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.GetUSerChatToken">
+            <summary>
+            Gets the user chat token of the current user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.UserLock(System.Int32,System.String)">
+            <summary>
+            Locks a user's account preventing them from being able to login.
+            </summary>
+            <param name="accountId"></param>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.UnLockUser(System.Int32,System.String)">
+            <summary>
+            Removes the lock on a user allowing them to login again.
+            </summary>
+            <param name="accountId"></param>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.GetContactAttributeValue(System.Int32,System.Int32,System.String)">
+            <summary>
+            Gets the value for a specific attribute.
+            </summary>
+            <param name="accountId"></param>
+            <param name="contactId"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.PostContactAttributeValue(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Creates a specific attribute item on a contact.
+            </summary>
+            <param name="accountId"></param>
+            <param name="contactId"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.GetContactImportTemplate(System.Int32)">
+            <summary>
+            Get contact import template file
+            </summary>
+            <param name="accountId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.GetKeywords(System.Int32,System.Boolean)">
+            <summary>
+            Get all the keywords for the account and its child 
+            </summary>
+            <param name="accountId"></param>
+            <param name="onlyMine"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.GetLongCodes(System.Int32)">
+            <summary>
+            Returns a list of usable long codes for the supplied account ID.
+            </summary>
+            <param name="accountId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.GetCampaignKeywords(System.Int32,System.Int32)">
+            <summary>
+            Gets all keywords on a campaign.
+            </summary>
+            <param name="accountId"></param>
+            <param name="campaignId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.GetKeywordCampaign(System.Int32,System.String,System.String)">
+            <summary>
+            Gets the campaign details of the specified keyword.
+            </summary>
+            <param name="accountId"></param>
+            <param name="channel"></param>
+            <param name="keyword"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.AttachkeywordCampaign(System.Int32,System.String,System.String,System.Int32)">
+            <summary>
+            Attaches a keyword to a campaign.
+            </summary>
+            <param name="accountId"></param>
+            <param name="channel"></param>
+            <param name="keyword"></param>
+            <param name="campaignId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.T70Context.DettachkeywordCampaign(System.Int32,System.String,System.String)">
+            <summary>
+             Remove Keyword Campaign
+            </summary>
+            <param name="accountId"></param>
+            <param name="channel"></param>
+            <param name="keyword"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Rest.CouponRestContext.GetCouponDefinition(System.Int32,System.Int32)">
+            <summary>
+            Get Coupon Definition
+            </summary>
+            <param name="accountId"></param>
+            <param name="campaignId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Rest.CouponRestContext.GetCouponDefinitionRedemption(System.Int32,System.Int32)">
+            <summary>
+            Get Redemption Rates
+            </summary>
+            <param name="accountId"></param>
+            <param name="campaignId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Rest.CouponRestContext.GetCouponOfferDetails(System.Int32,System.Int32)">
+            <summary>
+            Gets the Coupon Campaign offer details.
+            </summary>
+            <param name="accountId"></param>
+            <param name="campaignId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Rest.CouponRestContext.GetCouponExternalCodeList(System.Int32,System.Int32)">
+            <summary>
+            Get all coupon codes associated with a perticular External coupon ListId
+            </summary>
+            <param name="accountId"></param>
+            <param name="externalCouponListId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Rest.CouponRestContext.GetCouponExternalCode(System.Int32,System.Int32,System.String)">
+            <summary>
+            Get details of a perticular Coupon Code
+            </summary>
+            <param name="accountId"></param>
+            <param name="externalCouponListId"></param>
+            <param name="couponCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Rest.CouponRestContext.DeleteCouponExternalCode(System.Int32,System.Int32,System.String)">
+            <summary>
+            Deletes a perticular coupon code associated with an External coupon List
+            </summary>
+            <param name="accountId"></param>
+            <param name="externalCouponListId"></param>
+            <param name="couponCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Rest.CouponRestContext.RedeemCoupon(System.Int32,System.String)">
+            <summary>
+             Controller for redeeming a coupon.
+            </summary>
+            <param name="accountId"></param>
+            <param name="couponCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.DefaultRestClientFactory">
+            <summary>
+            Default implementation of IRestClientFactory.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.DefaultRestClientFactory.#ctor">
+            <summary />
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.DefaultRestClientFactory.Create(ThreeSeventy.Vector.Client.IConfiguration)">
+            <summary>
+            Simply returns a new RestClient() object.
+            </summary>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.ReportRestContext">
+            <summary>
+            Used to make Voice API calls
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.ReportRestContext.GetAllReports(System.Int32)">
+            <summary>
+            Gets a list of all available reports.
+            </summary>
+            <param name="accountId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.ReportRestContext.GetReport(System.Int32,System.String,System.Boolean)">
+            <summary>
+            Get deatils of the report
+            </summary>
+            <param name="accountId"></param>
+            <param name="reportName"></param>
+            <param name="getCount"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.RestModelBuilder">
+            <summary>
+            The model building configuration class
+            </summary>
+            <remarks>
+            This holds a collection of RestEntityConfigurationBase objects.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestModelBuilder.Entity``1">
+            <summary>
+            Gets the configuration object for a type of entity.
+            </summary>
+            <typeparam name="TEntity">The type that is being configured.</typeparam>
+            <returns>A RestEntityConfiguration object.</returns>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.RestRepository`1">
+            <summary>
+            Provides a repository interface for a given entity.
+            </summary>
+            <typeparam name="TEntity">The type of entity this repository is for.</typeparam>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestRepository`1.Get``1(``0,System.Boolean)">
+            <summary>
+            Gets a specific entity from REST.
+            </summary>
+            <remarks>
+            For objects with a compound key 'id' can be a complex object who's properties are 
+            each part of the compound key.
+            
+            For example:
+            var sub = contactSubRepo.Get(new { ContactId = 5, SubscriptionId = 10 });
+            
+            If there's a single key, there is no need for boxing:
+            var contact = contactRepo.Get(5);
+            </remarks>
+            <typeparam name="TKey">The type of object that specifies the key data.</typeparam>
+            <param name="id">The ID of the object being pulled</param>
+            <param name="throwIfNotFound">Set to true if an error should be thrown if an object is not found.
+            If this is false, then NULL is returned when an object is not found.</param>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <returns>The object if found, or NULL if not.
+            If throwIfNotFound is set to true then an Exception will be thrown when the object cannot be located.
+            </returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestRepository`1.GetAll">
+            <summary>
+            Returns a list of all objects availble from REST
+            </summary>
+            <remarks>
+            In the future this will apply an oData query to the results via the IQueryable interface.
+            
+            For now however, be aware that this will immediately query for all of the data available on the server and
+            perform the query using LINQ to objects.
+            </remarks>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <returns>An IQueryable for the given entity type.</returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestRepository`1.Add(`0)">
+            <summary>
+            Adds an object via REST.
+            </summary>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entity">The entity to add</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestRepository`1.Add">
+            <summary>
+            Adds an object via REST
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestRepository`1.AddRange(System.Collections.Generic.ICollection{`0})">
+            <summary>
+            Adds a list of objects via REST
+            </summary>
+            <remarks>
+            At the moment this is just a convenience wrapper around Add().
+            </remarks>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entities">The list of entites to add</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestRepository`1.Update(`0)">
+            <summary>
+            Updates an object via REST
+            </summary>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entity">The object to update</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestRepository`1.UpdateRange(System.Collections.Generic.ICollection{`0})">
+            <summary>
+            Updates a list of objects via REST
+            </summary>
+            <remarks>
+            This is a convenience wrapper for calling Update()
+            </remarks>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entities">The list of objects to add</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestRepository`1.Delete(`0)">
+            <summary>
+            Removes an object from REST
+            </summary>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entity">The object ot delete</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestRepository`1.Delete">
+            <summary>
+            Removes the object
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestRepository`1.DeleteAll(System.Collections.Generic.ICollection{`0})">
+            <summary>
+            Removes a list of objects from REST
+            </summary>
+            <remarks>
+            This is a convenience wrapper for calling Delete()
+            </remarks>
+            <throws>
+            TODO: Fill this in
+            </throws>
+            <param name="entries">The list of objects to remove.</param>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.VoiceRestContext">
+            <summary>
+            Used to make Voice API calls
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.VoiceRestContext.VoiceCall(System.Int32,System.String,ThreeSeventy.Vector.Client.Models.VoiceCall)">
+            <summary>
+            Allows you to make a voice call from your LongCode to a valid phone number and will speak the provided sentance 
+            </summary>
+            <param name="accountId"></param>
+            <param name="longCode">Long code (From phone number) in the following format Ex.1xxxxxxxxxx</param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.VoiceRestContext.AudioCall(System.Int32,System.String,ThreeSeventy.Vector.Client.Models.AudioCall)">
+            <summary>
+            Allows you to make a call from your LongCode and play an audio file (mp3 or wav formats only) to a valid phone number
+            </summary>
+            <param name="accountId"></param>
+            <param name="longCode">Long code (From phone number) in the following format Ex.1xxxxxxxxxx</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.VoiceRestContext.BridgeCall(System.Int32,System.String,ThreeSeventy.Vector.Client.Models.BridgeCall)">
+            <summary>
+            Allows you to Bridge calls between two phone numbers using your Longcode
+            </summary>
+            <param name="accountId"></param>
+            <param name="longCode">Long code (From phone number) in the following format Ex.1xxxxxxxxxx</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.VoiceRestContext.ConferenceCall(System.Int32,System.String,ThreeSeventy.Vector.Client.Models.ConferenceCall)">
+            <summary>
+            Allows you to join an existing conference call or create a new one 
+            </summary>
+            <param name="accountId"></param>
+            <param name="longCode">Long code (From phone number) in the following format Ex.1xxxxxxxxxx</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.IRetryPolicy">
+            <summary>
+            Interface for a class that will execute the supplied action with a retry logic.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRetryPolicy.Execute(System.Action{System.Int32})">
+            <summary />
+            <param name="action">The action to execute</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRetryPolicy.Execute``1(System.Func{System.Int32,``0})">
+            <summary />
+            <typeparam name="T">The function return type</typeparam>
+            <param name="action">The function to execute.</param>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.RetryPoliciy`1">
+            <summary>
+            Base class for all retry policies.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RetryPoliciy`1.Execute(System.Action{System.Int32})">
+            <summary>
+            Executes the supplied action
+            </summary>
+            <param name="action">The action to execute</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RetryPoliciy`1.Execute``1(System.Func{System.Int32,``0})">
+            <summary>
+            Executes the supplied function
+            </summary>
+            <typeparam name="T">The return type of the function</typeparam>
+            <param name="action">The function to execute.</param>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.IRetryDetectionStrategy">
+            <summary>
+            Interface for transient error detection.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IRetryDetectionStrategy.IsTransient(System.Exception)">
+            <summary>
+            Checks to see if the supplied exception is a transient error.
+            </summary>
+            <param name="ex">The exception to check.</param>
+            <returns>True if this is a transient fault, false if not.</returns>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.RestErrorDetectionStrategy">
+            <summary>
+            Detection strategy for figuring out if we should retry or rest request or not.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RestErrorDetectionStrategy.IsTransient(System.Exception)">
+            <summary>
+            Checks to see if the supplied exception is a transient error.
+            </summary>
+            <param name="ex">The exception to check.</param>
+            <returns>True if this is a transient fault, false if not.</returns>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.ExponentialRetryStrategy">
+            <summary>
+            An exponential retry strategy.
+            </summary>
+            <remarks>
+            Exponential retry strategies will add an ever increasing amount of time.
+            </remarks>
+            /// <example>
+            The times returned might look like the following:
+            500ms, 1000ms, 2000ms, 4000ms, and so on.
+            </example>
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.RetryStrategy">
+            <summary>
+            Wrapper around if we should retry a request.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RetryStrategy.GetDelay(System.Int32)">
+            <summary>
+            Gets the delay we should wait for if we attempt to retry.
+            </summary>
+            <param name="attempt"></param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RetryStrategy.ShouldRetry(System.Int32,System.Exception,System.TimeSpan@)">
+            <summary>
+            Checks to see if the call should be retried.
+            </summary>
+            <param name="attempt">The attempt # that was tried.</param>
+            <param name="lastException">The exception (if any) that we got.</param>
+            <param name="delay">The delay we should wait for before trying again.</param>
+            <returns>True if we should retry, false if not.</returns>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RetryStrategy.Name">
+            <summary>
+            Gets the name of the retry strategy.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RetryStrategy.MaxTries">
+            <summary>
+            Gets or sets the maximum number of tries we should go for.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RetryStrategy.Interval">
+            <summary>
+            Gets or sets the initial amount of time for a retry.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RetryStrategy.MinInterval">
+            <summary>
+            Gets or sets the minimum amount of time we should delay by.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RetryStrategy.MaxInterval">
+            <summary>
+            Gets or sets the maximum amount of time we should delay by.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.ExponentialRetryStrategy.GetDelay(System.Int32)">
+            <summary />
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.ExponentialRetryStrategy.Name">
+            <summary />
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.FixedRetryStrategy">
+            <summary>
+            A fixed retry strategy.
+            </summary>
+            <remarks>
+            The fixed retry strategy will retry at a fixed interval.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.FixedRetryStrategy.GetDelay(System.Int32)">
+            <summary />
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.FixedRetryStrategy.Name">
+            <summary />
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.IncrementalRetryStrategy">
+            <summary>
+            In incrementing retry strategy.
+            </summary>
+            <remarks>
+            An incrementing retry strategy will add a fixed amount of time to each attempt.
+            </remarks>
+            <example>
+            The times returned might look like the following:
+            500ms, 1000ms, 1500ms, 2000ms, and so on.
+            </example>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.IncrementalRetryStrategy.GetDelay(System.Int32)">
+            <summary />
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.IncrementalRetryStrategy.Name">
+            <summary />
+        </member>
+        <member name="T:ThreeSeventy.Vector.Client.RemoteException">
+            <summary>
+            An exception that is returned by the remote server when an error is detected.
+            </summary>
+            <remarks>
+            RemoteException errors are often returned when the server returns a 400 or other
+            HTTP error.
+            </remarks>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.RemoteException.#ctor(System.Net.HttpStatusCode,System.Collections.Generic.IEnumerable{ThreeSeventy.Vector.Client.Models.ErrorDetail})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="statusCode">The status code that caused the exception.</param>
+            <param name="errors">The list of errors found.</param>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RemoteException.StatusCode">
+            <summary>
+            The HTTP status code that caused this exception to be thrown.
+            </summary>
+        </member>
+        <member name="P:ThreeSeventy.Vector.Client.RemoteException.Errors">
+            <summary>
+            Contains a list of errors that was returned by the server.
+            </summary>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Utils.RequestHelper.IsSuccessCode(System.Net.HttpStatusCode)">
+            <summary>
+            Utility method for finding out if a status code should be treated as a success or an error.
+            </summary>
+            <remarks>
+            Note that this function would also treat 300-399 codes as an error.  Because RestSharp handles
+            those automatically that should not be a problem.
+            </remarks>
+            <param name="code">The HttpStatusCode value to check.</param>
+            <returns>True if the value is a successful call, false if it is an error.</returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Utils.RequestHelper.Deserialize``1(RestSharp.IRestResponse)">
+            <summary>
+            Deserializes an entity from the response stream.
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Utils.RequestHelper.TryForDetailedErrors(RestSharp.IRestResponse)">
+            <summary>
+            Attempts to deserialize a list of errors when we received an error response from the HTTP server.
+            </summary>
+            <remarks>
+            Unlike the TryForSimpleErrors this method attempts to pull out more specific details.
+            </remarks>
+            <param name="response">The response to parse</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Utils.RequestHelper.TryForSimpleErrors(RestSharp.IRestResponse)">
+            <summary>
+            Attempts to deserialize a list of errors when we received an error response from the HTTP server.
+            </summary>
+            <param name="response">The response to parse</param>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Utils.RequestHelper.ExecuteRequestFor(RestSharp.IRestClient,ThreeSeventy.Vector.Client.IRetryPolicy,RestSharp.IRestRequest,System.Boolean)">
+            <summary>
+            Wrapper for calling a request and parsing the response if there is an error.
+            </summary>
+            <param name="client">The client to use for making the call.</param>
+            <param name="retryPolicy">The retry policy to use for this request.</param>
+            <param name="request">The details of the request to make.</param>
+            <param name="nullOn404">Set if we should return NULL on a 404, false will cause an exception to get thrown.</param>
+            <returns>The IRestResponse or NULL if the entity was not found.</returns>
+        </member>
+        <member name="M:ThreeSeventy.Vector.Client.Utils.RequestHelper.HandleErrorResponse(RestSharp.IRestRequest,RestSharp.IRestResponse,System.Uri,System.Boolean)">
+            <summary>
+            Handles error response conditions.
+            </summary>
+            <param name="request">The request that was made</param>
+            <param name="response">The response we got back</param>
+            <param name="resource">The URI that we attmped.</param>
+            <param name="nullOn404">Set if we should just return NULL on 404 errors</param>
+        </member>
+    </members>
+</doc>
