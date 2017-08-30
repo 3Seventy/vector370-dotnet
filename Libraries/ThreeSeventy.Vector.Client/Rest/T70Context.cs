@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Net.Http;
 using Common.Logging;
 
 using RestSharp;
@@ -22,6 +22,24 @@ namespace ThreeSeventy.Vector.Client
         private const string KEYWORD_ATTACH_URI = "/account/{accountId}/channel/{channelId}/keyword/{keywordId}/campaign";
 
         private const string CONTACT_SEARCH_URI = "/account/{accountId}/contact-search/";
+
+        private const string ACCOUNT_ATTRIBUTE_URI = "/account/{accountId}/attribute/{name}";
+
+        private const string USER_CHAT_TOKEN_URI = "/chattoken";
+
+        private const string USER_LOCK_URI = "/account/{accountId}/user/{username}/lock";
+
+        private const string CONTACT_ATTRIBUTE_URI = "/account/{accountId}/contact/{contactId}/attribute/{name}";
+
+        private const string CONTACT_IMPORT_TEMPLATE = "/account/{accountId}/contact-importtemplate";
+
+        private const string KEYWORD_URI = "/account/{accountId}/keyword?onlyMine={onlyMine}";
+
+        private const string LONGCODE_URL = "/account/{accountId}/long-code";
+
+        private const string CAMPAIGN_KEYWORDS_URI = "/account/{accountId}/campaign/{campaignId}/keywords";
+
+        private const string KEYWORD_CAMPAIGN_URI = "/account/{accountId}/channel/{channel}/keyword/{keyword}/campaign";
 
         private readonly ILog m_log = LogManager.GetLogger(typeof(T70Context));
 
@@ -52,7 +70,22 @@ namespace ThreeSeventy.Vector.Client
         /// <param name="modelBuilder">The model building configuration object.</param>
         override protected void OnModelCreating(RestModelBuilder modelBuilder)
         {
+
+            UserSetup(modelBuilder);
+
+            UserChatTokenSetup(modelBuilder);
+
+            UserPasswordSetup(modelBuilder);
+
             AccountSetup(modelBuilder);
+
+            AccountAttributeSetup(modelBuilder);
+
+            AccountAttributeCategorySetup(modelBuilder);
+
+            AccountAttributeDefinitionSetup(modelBuilder);
+
+            ApiKeySetup(modelBuilder);
 
             ContactSetup(modelBuilder);
 
@@ -60,18 +93,127 @@ namespace ThreeSeventy.Vector.Client
 
             SubscriptionSetup(modelBuilder);
 
+            SubscriptionContactSetup(modelBuilder);
+
             CampaignSetup(modelBuilder);
 
             KeywordSetup(modelBuilder);
 
-            EventSetup(modelBuilder);
+            KeywordContactSetup(modelBuilder);
+
+            ActionSetup(modelBuilder);
+
+            ActionPushSetup(modelBuilder);
+
+            ActionExecuteSetup(modelBuilder);
+
+            ActionScheduleSetup(modelBuilder);
 
             CallbackSetup(modelBuilder);
+
+            ActionKeywordSetup(modelBuilder);
+
+            CallForwardSetup(modelBuilder);
+
+            CallForwardVerificationSetup(modelBuilder);
+
+            CallHistorySetup(modelBuilder);
+
+            ChatConversationLogSetup(modelBuilder);
+
+            ChatMessageLogSetup(modelBuilder);
+
+            ActionImportContactsSetup(modelBuilder);
+
+            ContactAttributeSetup(modelBuilder);
+
+            ContactAttributeCategorySetup(modelBuilder);
+
+            ContactAttributeDefinitionSetup(modelBuilder);
+
+            ContactKeywordSetup(modelBuilder);
+
+            ContactSubscriptionSetup(modelBuilder);
+
+            ChannelSetup(modelBuilder);
+
+            RequestTnSetup(modelBuilder);
+
+            SearchTnSetup(modelBuilder);
+
+            CouponOfferSetup(modelBuilder);
+
+            ExternalCouponListSetup(modelBuilder);
+
+            CampaignChatSetup(modelBuilder);
+
+            CampaignDialogSetup(modelBuilder);
+
+            CampaignQuestionAnswerDefinitionSetup(modelBuilder);
+
+            LinkSetup(modelBuilder);
 
             m_log.Trace("Model setup");
         }
 
         #region Model Setup
+
+        private static void UserSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .UriFormat("account/{accountId}/user/{username}")
+                ;
+
+            modelBuilder.Entity<User>()
+                .Property(c => c.UserName)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("username")
+                ;
+
+            modelBuilder.Entity<User>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+        private static void UserChatTokenSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserChatToken>()
+                .UriFormat("/chattoken/{accountId}")
+            ;
+
+            modelBuilder.Entity<UserChatToken>()
+                .Property(a => a.AccountId)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("accountId")
+            ;
+
+        }
+
+
+        private static void UserPasswordSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserPassword>()
+                .UriFormat("/account/{accountId}/user/{userName}/password")
+                ;
+
+            modelBuilder.Entity<UserPassword>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+
+            modelBuilder.Entity<UserPassword>()
+                .Property(c => c.UserName)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("username")
+                ;
+
+        }
 
         private static void AccountSetup(RestModelBuilder modelBuilder)
         {
@@ -85,6 +227,84 @@ namespace ThreeSeventy.Vector.Client
                 .PrimaryKey()
                 .MapTo("accountId")
             ;
+        }
+
+        private static void AccountAttributeSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AccountAttribute>()
+                .UriFormat("/account/{accountId}/attribute/{name}")
+                ;
+
+            modelBuilder.Entity<AccountAttribute>()
+                .Property(c => c.Name)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("name")
+                ;
+
+            modelBuilder.Entity<AccountAttribute>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+        private static void AccountAttributeCategorySetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AccountAttributeCategory>()
+                .UriFormat("/reference/account-attribute-category/{categoryId}")
+                ;
+
+            modelBuilder.Entity<AccountAttributeCategory>()
+                .Property(c => c.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("categoryId")
+                ;
+        }
+        
+
+     private static void AccountAttributeDefinitionSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AccountAttributeDefinition>()
+                .UriFormat("/account/{accountId}/attributeDef/{attribDefId}")
+                ;
+
+            modelBuilder.Entity<AccountAttributeDefinition>()
+                .Property(c => c.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("attribDefId")
+                ;
+
+            modelBuilder.Entity<AccountAttributeDefinition>()
+             .Property(c => c.AccountId)
+             .UrlSegment()
+             .MapTo("accountId")
+             ;
+        }
+
+        
+
+         private static void ApiKeySetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApiKey>()
+                .UriFormat("/account/{accountId}/api-key/{keyId}")
+                ;
+
+            modelBuilder.Entity<ApiKey>()
+                .Property(c => c.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("keyId")
+                ;
+
+            modelBuilder.Entity<ApiKey>()
+             .Property(c => c.AccountId)
+             .UrlSegment()
+             .MapTo("accountId")
+             ;
         }
 
         private static void ContactSetup(RestModelBuilder modelBuilder)
@@ -105,6 +325,95 @@ namespace ThreeSeventy.Vector.Client
                 .UrlSegment()
                 .MapTo("accountId")
             ;
+        }
+
+
+        private static void ContactAttributeSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ContactAttribute>()
+                .UriFormat("/account/{accountId}/contact/{contactId}/attribute/{name}")
+                ;
+
+            modelBuilder.Entity<ContactAttribute>()
+                .Property(c => c.Name)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("name")
+                ;
+
+            modelBuilder.Entity<ContactAttribute>()
+                .Property(c => c.ContactId)
+                .OptionalUrlSegment()
+                .MapTo("contactId")
+                ;
+
+            modelBuilder.Entity<ContactAttribute>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+        private static void ContactKeywordSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ContactKeyword>()
+                .UriFormat("account/{accountId}/contact/{contactId}/keyword/{keywordId}")
+                ;
+
+
+            modelBuilder.Entity<ContactKeyword>()
+                .Property(c => c.KeywordId)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("keywordId")
+                ;
+
+            modelBuilder.Entity<ContactKeyword>()
+                .Property(c => c.ContactId)
+                .OptionalUrlSegment()
+                .MapTo("contactId")
+                ;
+
+            modelBuilder.Entity<ContactKeyword>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+        private static void ContactAttributeCategorySetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ContactAttributeCategory>()
+                .UriFormat("/reference/contact-attribute-category/{categoryId}")
+                ;
+
+            modelBuilder.Entity<ContactAttributeCategory>()
+                .Property(c => c.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("categoryId")
+                ;
+        }
+
+
+        private static void ContactAttributeDefinitionSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ContactAttributeDefinition>()
+                           .UriFormat("/account/{accountId}/contact-attributeDef/{attribDefId}")
+                           ;
+
+            modelBuilder.Entity<ContactAttributeDefinition>()
+                .Property(c => c.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("attribDefId")
+                ;
+
+            modelBuilder.Entity<ContactAttributeDefinition>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
         }
 
         private static void ContentSetup(RestModelBuilder modelBuilder)
@@ -170,6 +479,32 @@ namespace ThreeSeventy.Vector.Client
             ;
         }
 
+        private static void SubscriptionContactSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SubscriptionContact>()
+                .UriFormat("/account/{accountId}/subscription/{subscriptionId}/contact/{contactId}")
+                ;
+
+            modelBuilder.Entity<SubscriptionContact>()
+                .Property(s => s.SubscriptionId)
+                .OptionalUrlSegment()
+                .MapTo("subscriptionId")
+                ;
+
+            modelBuilder.Entity<SubscriptionContact>()
+                .Property(s => s.ContactId)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("contactId")
+                ;
+
+            modelBuilder.Entity<SubscriptionContact>()
+                .Property(s => s.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
         private static void CampaignSetup(RestModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Campaign>()
@@ -216,7 +551,51 @@ namespace ThreeSeventy.Vector.Client
             ;
         }
 
-        private static void EventSetup(RestModelBuilder modelBuilder)
+
+
+        private static void KeywordContactSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<KeywordContact>()
+                .UriFormat("/account/{accountId}/keyword/{keywordId}/contact")
+            ;
+
+            modelBuilder.Entity<KeywordContact>()
+                .Property(k => k.KeywordId)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("keywordId")
+            ;
+
+
+            modelBuilder.Entity<KeywordContact>()
+                .Property(k => k.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+            ;
+        }
+
+
+        private static void ActionSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ThreeSeventy.Vector.Client.Models.Action>()
+                .UriFormat("/account/{accountId}/action/{actionId}")
+            ;
+
+            modelBuilder.Entity<ThreeSeventy.Vector.Client.Models.Action>()
+                .Property(e => e.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("actionId")
+            ;
+
+            modelBuilder.Entity<ThreeSeventy.Vector.Client.Models.Action>()
+                .Property(e => e.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+            ;
+        }
+
+        private static void ActionPushSetup(RestModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ActionPushCampaign>()
                 .UriFormat("/account/{accountId}/action-pushCampaign/{actionId}")
@@ -234,6 +613,78 @@ namespace ThreeSeventy.Vector.Client
                 .UrlSegment()
                 .MapTo("accountId")
             ;
+        }
+
+        private static void ActionKeywordSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ActionAttachKeyword>()
+                .UriFormat("/account/{accountId}/action-attachKeyword/{actionId}")
+            ;
+
+            modelBuilder.Entity<ActionAttachKeyword>()
+                .Property(e => e.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("actionId")
+            ;
+
+            modelBuilder.Entity<ActionAttachKeyword>()
+                .Property(e => e.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+            ;
+        }
+
+        private static void ActionScheduleSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ActionSchedule>()
+                .UriFormat("/account/{accountId}/action/{actionId}/schedule/{scheduleId}")
+                ;
+
+            modelBuilder.Entity<ActionSchedule>()
+              .Property(e => e.ActionId)
+              .UrlSegment()
+              .MapTo("actionId")
+              ;
+
+            modelBuilder.Entity<ActionSchedule>()
+                .Property(e => e.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("scheduleId")
+                ;
+
+            modelBuilder.Entity<ActionSchedule>()
+                .Property(e => e.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+        private static void ActionExecuteSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ActionExecute>()
+                .UriFormat("/account/{accountId}/action/{actionId}/execute/{executeId}")
+                ;
+
+            modelBuilder.Entity<ActionExecute>()
+                .Property(e => e.ActionId)
+                .UrlSegment()
+                .MapTo("actionId")
+                ;
+
+            modelBuilder.Entity<ActionExecute>()
+                .Property(e => e.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("executeId")
+                ;
+
+            modelBuilder.Entity<ActionExecute>()
+                .Property(e => e.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
         }
 
         private static void CallbackSetup(RestModelBuilder modelBuilder)
@@ -256,11 +707,361 @@ namespace ThreeSeventy.Vector.Client
             ;
         }
 
+
+        private static void CallForwardSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CallForward>()
+                .UriFormat("/account/{accountId}/long-code/{longCode}/callforwarding")
+                ;
+
+            modelBuilder.Entity<CallForward>()
+                .Property(c => c.Code)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("longCode")
+                ;
+
+            modelBuilder.Entity<CallForward>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+        private static void CallForwardVerificationSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CallForwardVerification>()
+                .UriFormat("/account/{accountId}/long-code/{longCode}/callforwardingverification")
+                ;
+
+            modelBuilder.Entity<CallForwardVerification>()
+                .Property(c => c.Code)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("longCode")
+                ;
+
+            modelBuilder.Entity<CallForwardVerification>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+        private static void CallHistorySetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CallHistory>()
+                .UriFormat("/account/{accountId}/chat/history")
+                ;
+
+
+            modelBuilder.Entity<CallHistory>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .PrimaryKey()
+                .MapTo("accountId")
+                ;
+        }
+
+
+        private static void ChatConversationLogSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ChatConversationLog>()
+                .UriFormat("/account/{accountId}/chat/conversation/{conversationId}")
+                ;
+
+            modelBuilder.Entity<ChatConversationLog>()
+           .Property(c => c.ConversationId)
+           .OptionalUrlSegment()
+           .PrimaryKey()
+           .MapTo("conversationId")
+           ;
+
+
+            modelBuilder.Entity<ChatConversationLog>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+        private static void ChatMessageLogSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ChatMessageLog>()
+                .UriFormat("/account/{accountId}/chat/conversation/{conversationId}")
+                ;
+
+
+            modelBuilder.Entity<ChatMessageLog>()
+                .Property(c => c.ConversationId)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("conversationId")
+                ;
+
+            modelBuilder.Entity<ChatMessageLog>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+        private static void ActionImportContactsSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ActionImportContacts>()
+               .UriFormat("/account/{accountId}/action-importContacts/{actionId}")
+               ;
+
+
+            modelBuilder.Entity<ActionImportContacts>()
+                .Property(c => c.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("actionId")
+                ;
+
+            modelBuilder.Entity<ActionImportContacts>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+        private static void ContactSubscriptionSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ContactSubscription>()
+                .UriFormat("/account/{accountId}/contact/{contactId}/subscription/{subscriptionId}")
+                ;
+
+            modelBuilder.Entity<ContactSubscription>()
+                .Property(c => c.ContactId)
+                .OptionalUrlSegment()
+                .MapTo("contactId")
+                ;
+
+            modelBuilder.Entity<ContactSubscription>()
+                .Property(c => c.SubscriptionId)
+                .OptionalUrlSegment()
+                 .PrimaryKey()
+                .MapTo("subscriptionId")
+                ;
+
+            modelBuilder.Entity<ContactSubscription>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+        private static void ChannelSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Channel>()
+                .UriFormat("/account/{accountId}/channel/{channel}")
+                ;
+
+            modelBuilder.Entity<Channel>()
+                .Property(c => c.Id)
+                .OptionalUrlSegment()
+                 .PrimaryKey()
+                .MapTo("channel")
+                ;
+
+            modelBuilder.Entity<Channel>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+        private static void RequestTnSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<RequestTn>()
+                .UriFormat("/account/{accountId}/request-tn/{requestId}")
+                ;
+
+            modelBuilder.Entity<RequestTn>()
+                .Property(c => c.Id)
+                .OptionalUrlSegment()
+                 .PrimaryKey()
+                .MapTo("requestId")
+                ;
+
+            modelBuilder.Entity<RequestTn>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+
+        private static void SearchTnSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SearchTn>()
+                .UriFormat("/account/{accountId}/search-for-tn/{searchId}")
+                ;
+
+            modelBuilder.Entity<SearchTn>()
+                .Property(c => c.Id)
+                .OptionalUrlSegment()
+                 .PrimaryKey()
+                .MapTo("searchId")
+                ;
+
+            modelBuilder.Entity<SearchTn>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+
+        private static void CouponOfferSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CouponOffer>()
+                .UriFormat("/account/{accountId}/campaign/{campaignId}/coupon")
+                ;
+
+            modelBuilder.Entity<CouponOffer>()
+                .Property(c => c.CampaignId)
+                .OptionalUrlSegment()
+                 .PrimaryKey()
+                .MapTo("campaignId")
+                ;
+
+            modelBuilder.Entity<CouponOffer>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+
+
+        private static void ExternalCouponListSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ExternalCouponList>()
+                .UriFormat("/account/{accountId}/external-couponlist/{externalCouponListId}")
+                ;
+
+            modelBuilder.Entity<ExternalCouponList>()
+                .Property(c => c.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("externalCouponListId")
+                ;
+
+            modelBuilder.Entity<ExternalCouponList>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+        private static void CampaignChatSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CampaignChat>()
+                .UriFormat("/account/{accountId}/campaign/{campaignId}/chat")
+                ;
+
+            modelBuilder.Entity<CampaignChat>()
+                .Property(c => c.CampaignId)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("campaignId")
+                ;
+
+            modelBuilder.Entity<CampaignChat>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+        private static void CampaignDialogSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CampaignDialog>()
+                .UriFormat("/account/{accountId}/campaign/{campaignId}/dialog")
+                ;
+
+            modelBuilder.Entity<CampaignDialog>()
+                .Property(c => c.CampaignId)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("campaignId")
+                ;
+
+            modelBuilder.Entity<CampaignDialog>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
+        private static void CampaignQuestionAnswerDefinitionSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CampaignQuestionAnswerDefinition>()
+                .UriFormat("/account/{accountId}/campaign/{campaignId}/question/answer/{answerId}")
+                ;
+
+            modelBuilder.Entity<CampaignQuestionAnswerDefinition>()
+                .Property(c => c.CampaignId)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("campaignId")
+                ;
+
+            modelBuilder.Entity<CampaignQuestionAnswerDefinition>()
+                .Property(c => c.AnswerId)
+                .OptionalUrlSegment()
+                .MapTo("answerId")
+                ;
+
+
+            modelBuilder.Entity<CampaignQuestionAnswerDefinition>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+        private static void LinkSetup(RestModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Link>()
+                .UriFormat("/account/{accountId}/link/{linkId}")
+                ;
+
+            modelBuilder.Entity<Link>()
+                .Property(c => c.Id)
+                .OptionalUrlSegment()
+                .PrimaryKey()
+                .MapTo("linkId")
+                ;
+
+
+            modelBuilder.Entity<Link>()
+                .Property(c => c.AccountId)
+                .UrlSegment()
+                .MapTo("accountId")
+                ;
+        }
+
+
         #endregion Model Setup
 
         #region Utility Function Support
 
-        private void Execute(IRestRequest request)
+        protected void Execute(IRestRequest request)
         {
             var client = GetClient();
 
@@ -274,7 +1075,7 @@ namespace ThreeSeventy.Vector.Client
                 false);
         }
 
-        private TEntity Execute<TEntity>(IRestRequest request)
+        protected TEntity Execute<TEntity>(IRestRequest request)
             where TEntity : class, new()
         {
             var client = GetClient();
@@ -369,6 +1170,359 @@ namespace ThreeSeventy.Vector.Client
             return res.AsQueryable();
         }
 
+
+        /// <summary>
+        /// Get the Account Attribute 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+
+        public string GetAccountAttribute(int accountId, string name)
+        {
+            var request = new RestRequest(ACCOUNT_ATTRIBUTE_URI, Method.GET)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+
+            request.AddUrlSegment("accountId", accountId.ToString());
+            request.AddUrlSegment("name", name);
+
+            var res = Execute<object>(request) ?? "";
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res.ToString();
+        }
+
+
+        /// <summary>
+        /// POST the Account Attribute value 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+
+        public string SetAccountAttributeValue(int accountId, string name, string value)
+        {
+            var request = new RestRequest(ACCOUNT_ATTRIBUTE_URI, Method.PUT)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+
+            request.AddBody(value);
+
+            request.AddUrlSegment("accountId", accountId.ToString());
+            request.AddUrlSegment("name", name);
+
+            var res = Execute<object>(request) ?? "";
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res.ToString();
+        }
+
+        /// <summary>
+        /// Gets the user chat token of the current user
+        /// </summary>
+        /// <returns></returns>
+        public UserChatToken GetUSerChatToken()
+        {
+            var request = new RestRequest(USER_CHAT_TOKEN_URI, Method.GET)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+
+
+            var res = Execute<UserChatToken>(request) ?? new UserChatToken();
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res;
+        }
+
+
+        /// <summary>
+        /// Locks a user's account preventing them from being able to login.
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string UserLock(int accountId, string userName)
+        {
+            var request = new RestRequest(USER_LOCK_URI, Method.POST)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+
+
+            request.AddUrlSegment("accountId", accountId.ToString());
+            request.AddUrlSegment("userName", userName);
+
+            var res = Execute<object>(request) ?? "";
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res.ToString();
+        }
+
+        /// <summary>
+        /// Removes the lock on a user allowing them to login again.
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string UnLockUser(int accountId, string userName)
+        {
+            var request = new RestRequest(USER_LOCK_URI, Method.PUT)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+
+
+            request.AddUrlSegment("accountId", accountId.ToString());
+            request.AddUrlSegment("userName", userName);
+
+            var res = Execute<object>(request) ?? "";
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res.ToString();
+        }
+
+
+        /// <summary>
+        /// Gets the value for a specific attribute.
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="contactId"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public string GetContactAttributeValue(int accountId, int contactId, string name)
+        {
+            var request = new RestRequest(CONTACT_ATTRIBUTE_URI, Method.GET)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+
+
+            request.AddUrlSegment("accountId", accountId.ToString());
+            request.AddUrlSegment("contactId", contactId.ToString());
+            request.AddUrlSegment("name", name);
+
+            var res = Execute<object>(request) ?? "";
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res.ToString();
+        }
+
+        /// <summary>
+        /// Creates a specific attribute item on a contact.
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="contactId"></param>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public string PostContactAttributeValue(int accountId, int contactId, string name, string value)
+        {
+            var request = new RestRequest(CONTACT_ATTRIBUTE_URI, Method.POST)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+
+            request.AddBody(value);
+
+            request.AddUrlSegment("accountId", accountId.ToString());
+            request.AddUrlSegment("contactId", contactId.ToString());
+            request.AddUrlSegment("name", name);
+
+            var res = Execute<object>(request) ?? "";
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res.ToString();
+        }
+
+
+        /// <summary>
+        /// Get contact import template file
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        public string GetContactImportTemplate(int accountId)
+        {
+            var request = new RestRequest(CONTACT_IMPORT_TEMPLATE, Method.GET)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+            request.AddUrlSegment("accountId", accountId.ToString());
+
+            var res = Execute<object>(request) ?? "";
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res.ToString();
+        }
+
+
+
+        /// <summary>
+        /// Get all the keywords for the account and its child 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="onlyMine"></param>
+        /// <returns></returns>
+        public List<Keyword> GetKeywords(int accountId, bool onlyMine)
+        {
+            var request = new RestRequest(KEYWORD_URI, Method.GET)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+            request.AddUrlSegment("accountId", accountId.ToString());
+            request.AddUrlSegment("onlyMine", onlyMine.ToString());
+
+            var res = Execute<List<Keyword>>(request) ?? new List<Keyword>();
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res;
+        }
+
+        /// <summary>
+        /// Returns a list of usable long codes for the supplied account ID.
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        public List<string> GetLongCodes(int accountId)
+        {
+            var request = new RestRequest(LONGCODE_URL, Method.GET)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+            request.AddUrlSegment("accountId", accountId.ToString());
+
+            var res = Execute<List<string>>(request) ?? new List<string>();
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res;
+        }
+
+        /// <summary>
+        /// Gets all keywords on a campaign.
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        public List<Keyword> GetCampaignKeywords(int accountId, int campaignId)
+        {
+            var request = new RestRequest(CAMPAIGN_KEYWORDS_URI, Method.GET)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+            request.AddUrlSegment("accountId", accountId.ToString());
+            request.AddUrlSegment("campaignId", accountId.ToString());
+
+            var res = Execute<List<Keyword>>(request) ?? new List<Keyword>();
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res;
+        }
+
+
+        /// <summary>
+        /// Gets the campaign details of the specified keyword.
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="channel"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        public Campaign GetKeywordCampaign(int accountId, string channel, string keyword)
+        {
+            var request = new RestRequest(KEYWORD_CAMPAIGN_URI, Method.GET)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+            request.AddUrlSegment("accountId", accountId.ToString());
+            request.AddUrlSegment("channel", channel);
+            request.AddUrlSegment("keyword", keyword);
+
+            var res = Execute<Campaign>(request) ?? new Campaign();
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res;
+        }
+
+/// <summary>
+/// Attaches a keyword to a campaign.
+/// </summary>
+/// <param name="accountId"></param>
+/// <param name="channel"></param>
+/// <param name="keyword"></param>
+/// <param name="campaignId"></param>
+/// <returns></returns>
+        public Keyword AttachkeywordCampaign(int accountId, string channel, string keyword, int campaignId)
+        {
+            var request = new RestRequest(KEYWORD_CAMPAIGN_URI, Method.POST)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+
+            request.AddBody(campaignId);
+            request.AddUrlSegment("accountId", accountId.ToString());
+            request.AddUrlSegment("channel", channel);
+            request.AddUrlSegment("keyword", keyword);
+
+            var res = Execute<Keyword>(request) ?? new Keyword();
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res;
+        }
+
+
+        /// <summary>
+        ///  Remove Keyword Campaign
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="channel"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        public HttpResponseMessage DettachkeywordCampaign(int accountId, string channel, string keyword)
+        {
+            var request = new RestRequest(KEYWORD_CAMPAIGN_URI, Method.DELETE)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new NewtonsoftSerializer()
+            };
+
+            request.AddUrlSegment("accountId", accountId.ToString());
+            request.AddUrlSegment("channel", channel);
+            request.AddUrlSegment("keyword", keyword);
+
+            var res = Execute<HttpResponseMessage>(request) ?? new HttpResponseMessage();
+
+            // TODO: Map a flattened contact to an unflattened one.
+
+            return res;
+        }
         #endregion Utility Functions
     }
 }

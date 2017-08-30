@@ -146,6 +146,16 @@ namespace ThreeSeventy.Vector.Client
             }
         }
 
+
+
+        /// <summary>
+        /// Adds an object via REST
+        /// </summary>
+        public void Add()
+        {
+            ExecuteRequestFor(Method.POST, null, null, false);
+        }
+
         /// <summary>
         /// Adds a list of objects via REST
         /// </summary>
@@ -223,6 +233,14 @@ namespace ThreeSeventy.Vector.Client
                 throw new ArgumentNullException("entity");
 
             ExecuteRequestFor(Method.DELETE, null, entity, true);
+        }
+
+        /// <summary>
+        /// Removes the object
+        /// </summary>
+        public void Delete()
+        {
+            ExecuteRequestFor(Method.DELETE, null, null, false);
         }
 
         /// <summary>
