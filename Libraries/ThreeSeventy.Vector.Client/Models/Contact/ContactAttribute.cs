@@ -23,8 +23,20 @@ namespace ThreeSeventy.Vector.Client.Models
     /// </remarks>
     [Serializable]
     [DataContract]
-    public class ContactAttribute
+    public class ContactAttribute : Base
     {
+        /// <summary>
+        /// Account Id
+        /// </summary>
+        public int AccountId { get; set; }
+
+        /// <summary>
+        /// Contact Id
+        /// </summary>
+        [DataMember]
+        public object ContactId { get; set; }
+
+
         /// <summary>
         /// The name of the attribute that is set.
         /// </summary>

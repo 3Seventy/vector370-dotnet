@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ThreeSeventy.Vector.Client
@@ -57,6 +58,10 @@ namespace ThreeSeventy.Vector.Client
         void Add(TEntity entity);
 
         /// <summary>
+        /// Add an object to the repository
+        /// </summary>
+        void Add();
+        /// <summary>
         /// Adds a list of objects to the repository.
         /// </summary>
         /// <throws>
@@ -91,6 +96,11 @@ namespace ThreeSeventy.Vector.Client
         /// </throws>
         /// <param name="entity">The object ot delete</param>
         void Delete(TEntity entity);
+
+        /// <summary>
+        /// Removes an object from the repository
+        /// </summary>
+        void Delete();
 
         /// <summary>
         /// Removes a list of objects from the repository.

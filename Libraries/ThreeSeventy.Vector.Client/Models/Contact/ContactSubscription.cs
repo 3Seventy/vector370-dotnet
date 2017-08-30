@@ -16,8 +16,16 @@ namespace ThreeSeventy.Vector.Client.Models
     /// <seealso cref="SubscriptionType" />
     [Serializable]
     [DataContract]
-    public class ContactSubscription
+    public class ContactSubscription : Base
     {
+        /// <summary>
+        /// Account Id
+        /// </summary>
+        public int AccountId { get; set; }
+        /// <summary>
+        /// ContactID
+        /// </summary>
+        public int ContactId { get; set; }
         /// <summary>
         /// The subscription ID the contact is a member of.
         /// </summary>

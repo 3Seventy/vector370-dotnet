@@ -24,7 +24,7 @@ namespace ThreeSeventy.Vector.Client.Models
         /// <summary>
         /// So we won't return a null value for the list object.
         /// </summary>
-        private IList<int> m_channels = new List<int>();
+        private IList<string> m_channels = new List<string>();
 
         /// <summary>
         /// So we won't return a null value for the list object.
@@ -44,10 +44,10 @@ namespace ThreeSeventy.Vector.Client.Models
         /// The channels the campaign will be (or was) sent to.
         /// </summary>
         [DataMember]
-        public IList<int> Channels
+        public IList<string> Channels
         {
             get { return m_channels; }
-            set { m_channels = value ?? new List<int>(); }
+            set { m_channels = value ?? new List<string>(); }
         }
 
         /// <summary>

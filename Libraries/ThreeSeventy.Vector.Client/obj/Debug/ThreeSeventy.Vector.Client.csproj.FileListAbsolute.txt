@@ -1,0 +1,16 @@
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\ThreeSeventy.Vector.Client.XML
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\ThreeSeventy.Vector.Client.dll
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\ThreeSeventy.Vector.Client.pdb
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\Common.Logging.Core.dll
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\Common.Logging.dll
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\Newtonsoft.Json.dll
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\RestSharp.dll
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\Common.Logging.pdb
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\Common.Logging.xml
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\Common.Logging.Core.pdb
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\Common.Logging.Core.xml
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\Newtonsoft.Json.xml
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\bin\Debug\RestSharp.xml
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\obj\Debug\ThreeSeventy.Vector.Client.csprojResolveAssemblyReference.cache
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\obj\Debug\ThreeSeventy.Vector.Client.dll
+C:\Client\DotNet\_main\Libraries\ThreeSeventy.Vector.Client\obj\Debug\ThreeSeventy.Vector.Client.pdb
